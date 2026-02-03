@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MCPE Texture Pack Download - Koleksi Terlengkap</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --primary:#10b981;
+      --primary-dark:#059669;
+      --accent:#fbbf24;
+      --dark:#0a0e27;
+      --card:#1a1f3a;
+      --bg:#050814;
+      --text:#f3f4f6;
+      --text-muted:#9ca3af;
+      --shadow:rgba(16,185,129,.2);
+    }
+    *{
+      box-sizing:border-box;
+      margin:0;
+      padding:0;
+    }
+    body{
+      font-family:'Outfit',sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.6;
+      overflow-x:hidden;
+    }
+    
+    /* Animated Background */
+    .bg-animation{
+      position:fixed;
+      inset:0;
+      z-index:0;
+      opacity:.15;
+      background:
+        radial-gradient(circle at 20% 50%,var(--primary) 0,transparent 50%),
+        radial-gradient(circle at 80% 80%,var(--accent) 0,transparent 50%);
+      animation:bgShift 15s ease-in-out infinite;
+    }
+    @keyframes bgShift{
+      0%,100%{transform:scale(1) rotate(0deg)}
+      50%{transform:scale(1.1) rotate(5deg)}
+    }
+    
+    /* Header */
+    header{
+      position:relative;
+      background:linear-gradient(135deg,rgba(16,185,129,.9),rgba(5,150,105,.9)),
+        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect fill="%23059669" width="100" height="100"/><g fill="%2310b981" opacity=".1"><rect x="0" y="0" width="10" height="10"/><rect x="20" y="20" width="10" height="10"/><rect x="40" y="0" width="10" height="10"/><rect x="60" y="20" width="10" height="10"/><rect x="80" y="0" width="10" height="10"/><rect x="10" y="10" width="10" height="10"/><rect x="30" y="30" width="10" height="10"/><rect x="50" y="10" width="10" height="10"/><rect x="70" y="30" width="10" height="10"/><rect x="90" y="10" width="10" height="10"/></g></svg>');
+      background-size:cover,80px 80px;
+      padding:60px 20px;
+      text-align:center;
+      box-shadow:0 10px 40px rgba(0,0,0,.5);
+      animation:headerFade 1s ease-out;
+    }
+    @keyframes headerFade{
+      from{opacity:0;transform:translateY(-20px)}
+      to{opacity:1;transform:translateY(0)}
+    }
+    header h1{
+      font-family:'Bebas Neue',sans-serif;
+      font-size:clamp(2.5em,8vw,5em);
+      letter-spacing:3px;
+      margin:0;
+      text-shadow:4px 4px 0 rgba(0,0,0,.3);
+      animation:titleSlide 1s ease-out .2s both;
+    }
+    @keyframes titleSlide{
+      from{opacity:0;transform:translateX(-50px)}
+      to{opacity:1;transform:translateX(0)}
+    }
+    header p{
+      font-size:1.2em;
+      margin:15px 0 0;
+      opacity:.95;
+      animation:fadeIn 1s ease-out .4s both;
+    }
+    @keyframes fadeIn{
+      from{opacity:0}
+      to{opacity:1}
+    }
+    
+    /* Navigation */
+    nav{
+      display:flex;
+      gap:12px;
+      justify-content:center;
+      margin-top:25px;
+      flex-wrap:wrap;
+      animation:fadeIn 1s ease-out .6s both;
+    }
+    nav a{
+      position:relative;
+      color:var(--dark);
+      background:#d1fae5;
+      padding:10px 20px;
+      border-radius:25px;
+      text-decoration:none;
+      font-weight:700;
+      font-size:.95em;
+      transition:all .3s cubic-bezier(.4,0,.2,1);
+      box-shadow:0 4px 12px rgba(0,0,0,.2);
+    }
+    nav a:hover{
+      background:var(--accent);
+      transform:translateY(-3px) scale(1.05);
+      box-shadow:0 8px 20px rgba(251,191,36,.4);
+    }
+    nav a.active{
+      background:var(--accent);
+      box-shadow:0 8px 20px rgba(251,191,36,.4);
+    }
+    
+    /* Stats Bar */
+    .stats{
+      display:flex;
+      justify-content:center;
+      gap:40px;
+      background:var(--card);
+      padding:25px;
+      margin:30px auto;
+      max-width:800px;
+      border-radius:20px;
+      box-shadow:0 10px 30px rgba(0,0,0,.3);
+      flex-wrap:wrap;
+      animation:slideUp .8s ease-out .8s both;
+    }
+    @keyframes slideUp{
+      from{opacity:0;transform:translateY(30px)}
+      to{opacity:1;transform:translateY(0)}
+    }
+    .stat{
+      text-align:center;
+    }
+    .stat-number{
+      font-family:'Bebas Neue',sans-serif;
+      font-size:2.5em;
+      color:var(--primary);
+      display:block;
+      line-height:1;
+    }
+    .stat-label{
+      font-size:.9em;
+      color:var(--text-muted);
+      margin-top:5px;
+    }
+    
+    /* Container */
+    .container{
+      position:relative;
+      z-index:1;
+      max-width:1300px;
+      margin:auto;
+      padding:40px 20px;
+    }
+    
+    /* Search */
+    .search-wrapper{
+      margin-bottom:35px;
+      display:flex;
+      justify-content:center;
+      animation:slideUp .8s ease-out 1s both;
+    }
+    .search-box{
+      position:relative;
+      width:100%;
+      max-width:600px;
+    }
+    .search-box input{
+      width:100%;
+      padding:18px 60px 18px 25px;
+      border-radius:50px;
+      border:2px solid var(--primary);
+      background:var(--card);
+      color:var(--text);
+      font-size:1.05em;
+      font-family:'Outfit',sans-serif;
+      outline:none;
+      transition:all .3s;
+      box-shadow:0 5px 20px rgba(0,0,0,.3);
+    }
+    .search-box input:focus{
+      border-color:var(--accent);
+      box-shadow:0 8px 30px var(--shadow);
+      transform:scale(1.02);
+    }
+    .search-icon{
+      position:absolute;
+      right:20px;
+      top:50%;
+      transform:translateY(-50%);
+      font-size:1.4em;
+      color:var(--primary);
+      pointer-events:none;
+    }
+    
+    /* Filter Tabs */
+    .filters{
+      display:flex;
+      gap:12px;
+      justify-content:center;
+      margin-bottom:30px;
+      flex-wrap:wrap;
+      animation:fadeIn 1s ease-out 1.2s both;
+    }
+    .filter-btn{
+      padding:10px 22px;
+      background:var(--card);
+      color:var(--text);
+      border:2px solid transparent;
+      border-radius:12px;
+      cursor:pointer;
+      font-weight:600;
+      font-size:.95em;
+      transition:all .3s;
+      font-family:'Outfit',sans-serif;
+    }
+    .filter-btn:hover{
+      border-color:var(--primary);
+      transform:translateY(-2px);
+    }
+    .filter-btn.active{
+      background:var(--primary);
+      color:var(--dark);
+      border-color:var(--primary);
+    }
+    
+    /* Grid */
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+      gap:28px;
+      animation:fadeIn 1s ease-out 1.4s both;
+    }
+    
+    /* Card */
+    .card{
+      position:relative;
+      background:var(--card);
+      border-radius:20px;
+      overflow:hidden;
+      box-shadow:0 10px 40px rgba(0,0,0,.4);
+      transition:all .4s cubic-bezier(.4,0,.2,1);
+      cursor:pointer;
+    }
+    .card:hover{
+      transform:translateY(-10px) scale(1.02);
+      box-shadow:0 20px 60px var(--shadow);
+    }
+    .card:hover .card-img{
+      transform:scale(1.1);
+    }
+    .card-img-wrapper{
+      position:relative;
+      width:100%;
+      height:200px;
+      overflow:hidden;
+      background:linear-gradient(135deg,var(--primary-dark),var(--primary));
+    }
+    .card-img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      transition:transform .6s cubic-bezier(.4,0,.2,1);
+    }
+    .card-badge{
+      position:absolute;
+      top:15px;
+      right:15px;
+      background:rgba(16,185,129,.95);
+      color:var(--dark);
+      padding:6px 14px;
+      border-radius:20px;
+      font-size:.8em;
+      font-weight:800;
+      backdrop-filter:blur(10px);
+      box-shadow:0 4px 15px rgba(0,0,0,.3);
+    }
+    .card-badge.new{
+      background:rgba(251,191,36,.95);
+      animation:pulse 2s infinite;
+    }
+    @keyframes pulse{
+      0%,100%{transform:scale(1)}
+      50%{transform:scale(1.05)}
+    }
+    .card-body{
+      padding:22px;
+    }
+    .card-body h3{
+      font-size:1.35em;
+      margin:0 0 10px;
+      font-weight:800;
+    }
+    .tag{
+      display:inline-block;
+      font-size:.75em;
+      background:rgba(16,185,129,.15);
+      color:var(--primary);
+      padding:5px 12px;
+      border-radius:8px;
+      margin-bottom:10px;
+      font-weight:600;
+      border:1px solid rgba(16,185,129,.3);
+    }
+    .card-body p{
+      font-size:.95em;
+      color:var(--text-muted);
+      margin:8px 0;
+    }
+    .meta{
+      display:flex;
+      gap:15px;
+      font-size:.85em;
+      color:var(--text-muted);
+      margin:12px 0;
+      flex-wrap:wrap;
+    }
+    .meta-item{
+      display:flex;
+      align-items:center;
+      gap:5px;
+    }
+    .rating{
+      color:var(--accent);
+      font-weight:700;
+    }
+    .card-actions{
+      display:flex;
+      gap:10px;
+      margin-top:15px;
+    }
+    .btn{
+      flex:1;
+      padding:12px;
+      text-align:center;
+      text-decoration:none;
+      border-radius:12px;
+      font-weight:700;
+      font-size:.9em;
+      transition:all .3s;
+      border:none;
+      cursor:pointer;
+      font-family:'Outfit',sans-serif;
+    }
+    .btn-primary{
+      background:var(--primary);
+      color:var(--dark);
+      box-shadow:0 4px 15px var(--shadow);
+    }
+    .btn-primary:hover{
+      background:var(--primary-dark);
+      transform:translateY(-2px);
+      box-shadow:0 8px 25px var(--shadow);
+    }
+    .btn-secondary{
+      background:transparent;
+      color:var(--primary);
+      border:2px solid var(--primary);
+    }
+    .btn-secondary:hover{
+      background:var(--primary);
+      color:var(--dark);
+    }
+    
+    /* Modal */
+    .modal{
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,.85);
+      backdrop-filter:blur(8px);
+      display:none;
+      justify-content:center;
+      align-items:center;
+      z-index:100;
+      padding:20px;
+      animation:fadeIn .3s ease-out;
+    }
+    .modal.show{
+      display:flex;
+    }
+    .modal-content{
+      background:var(--card);
+      border-radius:25px;
+      max-width:700px;
+      width:100%;
+      max-height:90vh;
+      overflow-y:auto;
+      position:relative;
+      box-shadow:0 25px 80px rgba(0,0,0,.7);
+      animation:modalSlide .4s cubic-bezier(.4,0,.2,1);
+    }
+    @keyframes modalSlide{
+      from{opacity:0;transform:translateY(50px) scale(.9)}
+      to{opacity:1;transform:translateY(0) scale(1)}
+    }
+    .modal-header{
+      position:relative;
+      height:250px;
+      overflow:hidden;
+      border-radius:25px 25px 0 0;
+    }
+    .modal-header img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+    .close{
+      position:absolute;
+      top:20px;
+      right:20px;
+      width:45px;
+      height:45px;
+      background:rgba(255,255,255,.95);
+      color:var(--dark);
+      border-radius:50%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:1.8em;
+      cursor:pointer;
+      transition:all .3s;
+      font-weight:700;
+      box-shadow:0 4px 15px rgba(0,0,0,.3);
+      z-index:1;
+    }
+    .close:hover{
+      transform:rotate(90deg) scale(1.1);
+      background:var(--accent);
+    }
+    .modal-body{
+      padding:30px;
+    }
+    .modal-body h2{
+      font-family:'Bebas Neue',sans-serif;
+      font-size:2.5em;
+      margin:0 0 15px;
+      letter-spacing:1px;
+    }
+    .modal-tags{
+      display:flex;
+      gap:8px;
+      margin-bottom:20px;
+      flex-wrap:wrap;
+    }
+    .modal-description{
+      color:var(--text-muted);
+      margin-bottom:25px;
+      line-height:1.8;
+    }
+    .features{
+      background:rgba(16,185,129,.08);
+      border-left:4px solid var(--primary);
+      padding:20px;
+      border-radius:12px;
+      margin-bottom:25px;
+    }
+    .features h4{
+      margin:0 0 12px;
+      color:var(--primary);
+      font-size:1.1em;
+    }
+    .features ul{
+      list-style:none;
+      padding:0;
+    }
+    .features li{
+      padding:8px 0;
+      padding-left:25px;
+      position:relative;
+      color:var(--text-muted);
+    }
+    .features li:before{
+      content:'✓';
+      position:absolute;
+      left:0;
+      color:var(--primary);
+      font-weight:700;
+      font-size:1.2em;
+    }
+    .download-box{
+      background:linear-gradient(135deg,var(--primary-dark),var(--primary));
+      padding:25px;
+      border-radius:15px;
+      text-align:center;
+    }
+    .download-box h3{
+      margin:0 0 15px;
+      font-family:'Bebas Neue',sans-serif;
+      font-size:1.8em;
+      letter-spacing:1px;
+    }
+    .download-box .btn{
+      display:inline-block;
+      padding:15px 40px;
+      background:var(--accent);
+      color:var(--dark);
+      font-weight:800;
+      border-radius:12px;
+      text-decoration:none;
+      font-size:1.1em;
+      transition:all .3s;
+      box-shadow:0 6px 20px rgba(0,0,0,.3);
+    }
+    .download-box .btn:hover{
+      transform:translateY(-3px) scale(1.05);
+      box-shadow:0 10px 30px rgba(251,191,36,.5);
+    }
+    .download-info{
+      margin-top:15px;
+      font-size:.9em;
+      opacity:.9;
+    }
+    
+    /* Footer */
+    footer{
+      position:relative;
+      z-index:1;
+      margin-top:60px;
+      background:var(--dark);
+      padding:40px 25px;
+      text-align:center;
+    }
+    .footer-content{
+      max-width:800px;
+      margin:auto;
+    }
+    .footer-links{
+      display:flex;
+      justify-content:center;
+      gap:25px;
+      margin-bottom:20px;
+      flex-wrap:wrap;
+    }
+    .footer-links a{
+      color:var(--text-muted);
+      text-decoration:none;
+      transition:color .3s;
+    }
+    .footer-links a:hover{
+      color:var(--primary);
+    }
+    .copyright{
+      font-size:.9em;
+      color:var(--text-muted);
+      margin-top:20px;
+    }
+    .copyright strong{
+      color:var(--primary);
+    }
+    
+    /* No Results */
+    .no-results{
+      display:none;
+      text-align:center;
+      padding:60px 20px;
+      color:var(--text-muted);
+    }
+    .no-results.show{
+      display:block;
+    }
+    .no-results-icon{
+      font-size:5em;
+      margin-bottom:20px;
+      opacity:.3;
+    }
+    .no-results h3{
+      margin:0 0 10px;
+      font-size:1.8em;
+    }
+    
+    /* Loading Animation */
+    .loading{
+      display:none;
+      justify-content:center;
+      align-items:center;
+      padding:60px;
+    }
+    .loading.show{
+      display:flex;
+    }
+    .spinner{
+      width:50px;
+      height:50px;
+      border:5px solid rgba(16,185,129,.2);
+      border-top-color:var(--primary);
+      border-radius:50%;
+      animation:spin 1s linear infinite;
+    }
+    @keyframes spin{
+      to{transform:rotate(360deg)}
+    }
+    
+    /* Responsive */
+    @media(max-width:768px){
+      header h1{font-size:2.5em}
+      .stats{gap:20px}
+      .stat-number{font-size:2em}
+      .grid{grid-template-columns:1fr}
+      .filters{gap:8px}
+      .filter-btn{padding:8px 16px;font-size:.9em}
+    }
+    
+    /* Scrollbar */
+    ::-webkit-scrollbar{width:10px}
+    ::-webkit-scrollbar-track{background:var(--dark)}
+    ::-webkit-scrollbar-thumb{background:var(--primary);border-radius:5px}
+    ::-webkit-scrollbar-thumb:hover{background:var(--primary-dark)}
+  </style>
+</head>
+<body>
+
+<div class="bg-animation"></div>
+
+<header>
+  <h1>🎮 MCPE TEXTURE PACK</h1>
+  <p>Download texture pack Minecraft PE terbaru, aman & gratis</p>
+  <nav>
+    <a href="#" class="active" onclick="filterPacks('all')">Semua</a>
+    <a href="#" onclick="filterPacks('realistic')">Realistic</a>
+    <a href="#" onclick="filterPacks('performance')">FPS Boost</a>
+    <a href="#" onclick="filterPacks('pvp')">PvP</a>
+    <a href="#" onclick="filterPacks('new')">Terbaru</a>
+  </nav>
+</header>
+
+<div class="container">
+  
+  <div class="stats">
+    <div class="stat">
+      <span class="stat-number" id="totalPacks">50+</span>
+      <span class="stat-label">Total Packs</span>
+    </div>
+    <div class="stat">
+      <span class="stat-number">1M+</span>
+      <span class="stat-label">Downloads</span>
+    </div>
+    <div class="stat">
+      <span class="stat-number">4.8★</span>
+      <span class="stat-label">Rating</span>
+    </div>
+    <div class="stat">
+      <span class="stat-number">100%</span>
+      <span class="stat-label">Gratis</span>
+    </div>
+  </div>
+
+  <div class="search-wrapper">
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="Cari texture pack favorit kamu..." onkeyup="searchPack(this.value)">
+      <span class="search-icon">🔍</span>
+    </div>
+  </div>
+
+  <div class="filters">
+    <button class="filter-btn active" data-filter="all" onclick="filterPacks('all')">Semua</button>
+    <button class="filter-btn" data-filter="realistic" onclick="filterPacks('realistic')">Realistic</button>
+    <button class="filter-btn" data-filter="performance" onclick="filterPacks('performance')">Performance</button>
+    <button class="filter-btn" data-filter="pvp" onclick="filterPacks('pvp')">PvP</button>
+    <button class="filter-btn" data-filter="cartoon" onclick="filterPacks('cartoon')">Cartoon</button>
+    <button class="filter-btn" data-filter="new" onclick="filterPacks('new')">Terbaru</button>
+  </div>
+
+  <div class="loading">
+    <div class="spinner"></div>
+  </div>
+
+  <div class="grid" id="packList">
+
+    <div class="card" data-name="realistic craft" data-category="realistic" data-version="1.21" data-new="true">
+      <div class="card-img-wrapper">
+        <img class="card-img" src="https://i.imgur.com/8QZ7QZQ.jpg" alt="Realistic Craft">
+        <div class="card-badge new">NEW</div>
+      </div>
+      <div class="card-body">
+        <span class="tag">Realistic</span>
+        <h3>Realistic Craft HD</h3>
+        <p>Texture HD ultra realistis dengan detail tinggi, cocok untuk survival dan adventure mode.</p>
+        <div class="meta">
+          <div class="meta-item">📦 v1.21</div>
+          <div class="meta-item">📱 Android/iOS</div>
+          <div class="meta-item rating">⭐ 4.8/5</div>
+          <div class="meta-item">💾 45MB</div>
+        </div>
+        <div class="card-actions">
+          <button class="btn btn-primary" onclick="openModal('Realistic Craft HD','https://i.imgur.com/8QZ7QZQ.jpg','realistic','Texture pack realistis dengan resolusi HD yang menghadirkan pengalaman visual menakjubkan. Setiap blok didesain dengan detail tinggi, pencahayaan yang realistis, dan efek shadow yang memukau.','1.21','45MB','4.8')">Detail</button>
+          <a class="btn btn-secondary" href="#download">Download</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" data-name="fps boost" data-category="performance" data-version="1.21">
+      <div class="card-img-wrapper">
+        <img class="card-img" src="https://i.imgur.com/nxKZp6T.jpg" alt="FPS Boost">
+        <div class="card-badge">POPULAR</div>
+      </div>
+      <div class="card-body">
+        <span class="tag">Performance</span>
+        <h3>FPS Boost Pack</h3>
+        <p>Texture pack super ringan untuk HP kentang, boost FPS hingga 60+ dengan visual yang tetap keren.</p>
+        <div class="meta">
+          <div class="meta-item">📦 v1.21</div>
+          <div class="meta-item">📱 Android/iOS</div>
+          <div class="meta-item rating">⭐ 4.7/5</div>
+          <div class="meta-item">💾 15MB</div>
+        </div>
+        <div class="card-actions">
+          <button class="btn btn-primary" onclick="openModal('FPS Boost Pack','https://i.imgur.com/nxKZp6T.jpg','performance','Pack khusus untuk meningkatkan performa game. Texture dioptimasi untuk menghemat RAM dan CPU tanpa mengurangi kualitas visual secara signifikan.','1.21','15MB','4.7')">Detail</button>
+          <a class="btn btn-secondary" href="#download">Download</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" data-name="pvp texture" data-category="pvp" data-version="1.21">
+      <div class="card-img-wrapper">
+        <img class="card-img" src="https://i.imgur.com/YW7QZKp.jpg" alt="PvP Pack">
+        <div class="card-badge">HOT</div>
+      </div>
+      <div class="card-body">
+        <span class="tag">PvP</span>
+        <h3>PvP Texture Pack Pro</h3>
+        <p>UI bersih, sword terlihat jelas, efek hit optimal. Perfect untuk war dan kompetisi PvP.</p>
+        <div class="meta">
+          <div class="meta-item">📦 v1.21</div>
+          <div class="meta-item">📱 Android/iOS</div>
+          <div class="meta-item rating">⭐ 4.9/5</div>
+          <div class="meta-item">💾 25MB</div>
+        </div>
+        <div class="card-actions">
+          <button class="btn btn-primary" onclick="openModal('PvP Texture Pack Pro','https://i.imgur.com/YW7QZKp.jpg','pvp','Texture pack dirancang khusus untuk PvP dengan interface yang clean, weapon yang jelas terlihat, dan efek yang tidak mengganggu konsentrasi saat bertarung.','1.21','25MB','4.9')">Detail</button>
+          <a class="btn btn-secondary" href="#download">Download</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" data-name="anime craft" data-category="cartoon" data-version="1.21" data-new="true">
+      <div class="card-img-wrapper">
+        <img class="card-img" src="https://i.imgur.com/Q8m3vZx.jpg" alt="Anime Craft">
+        <div class="card-badge new">NEW</div>
+      </div>
+      <div class="card-body">
+        <span class="tag">Cartoon</span>
+        <h3>Anime Craft Style</h3>
+        <p>Texture pack dengan gaya anime/cartoon yang colorful dan eye-catching. Bikin dunia minecraft jadi lebih cheerful!</p>
+        <div class="meta">
+          <div class="meta-item">📦 v1.21</div>
+          <div class="meta-item">📱 Android/iOS</div>
+          <div class="meta-item rating">⭐ 4.6/5</div>
+          <div class="meta-item">💾 35MB</div>
+        </div>
+        <div class="card-actions">
+          <button class="btn btn-primary" onclick="openModal('Anime Craft Style','https://i.imgur.com/Q8m3vZx.jpg','cartoon','Texture pack dengan aesthetic anime yang colorful dan fun. Cocok untuk player yang suka style cartoon dan warna-warna cerah.','1.21','35MB','4.6')">Detail</button>
+          <a class="btn btn-secondary" href="#download">Download</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" data-name="dark modern" data-category="realistic" data-version="1.21">
+      <div class="card-img-wrapper">
+        <img class="card-img" src="https://i.imgur.com/5kF8xGp.jpg" alt="Dark Modern">
+        <div class="card-badge">PREMIUM</div>
+      </div>
+      <div class="card-body">
+        <span class="tag">Realistic</span>
+        <h3>Dark Modern Texture</h3>
+        <p>Texture modern dengan tema dark yang elegan. Perfect untuk build modern dan futuristic.</p>
+        <div class="meta">
+          <div class="meta-item">📦 v1.21</div>
+          <div class="meta-item">📱 Android/iOS</div>
+          <div class="meta-item rating">⭐ 4.7/5</div>
+          <div class="meta-item">💾 38MB</div>
+        </div>
+        <div class="card-actions">
+          <button class="btn btn-primary" onclick="openModal('Dark Modern Texture','https://i.imgur.com/5kF8xGp.jpg','realistic','Pack dengan tema dark modern yang cocok untuk build-build futuristic. Texture detail dengan warna gelap yang elegan.','1.21','38MB','4.7')">Detail</button>
+          <a class="btn btn-secondary" href="#download">Download</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" data-name="ultra low" data-category="performance" data-version="1.21">
+      <div class="card-img-wrapper">
+        <img class="card-img" src="https://i.imgur.com/gk3J9Zl.jpg" alt="Ultra Low">
+        <div class="card-badge">LITE</div>
+      </div>
+      <div class="card-body">
+        <span class="tag">Performance</span>
+        <h3>Ultra Low 8x8</h3>
+        <p>Texture 8x8 paling ringan! Game lancar jaya di HP kentang sekalipun. No lag guaranteed!</p>
+        <div class="meta">
+          <div class="meta-item">📦 v1.21</div>
+          <div class="meta-item">📱 Android/iOS</div>
+          <div class="meta-item rating">⭐ 4.5/5</div>
+          <div class="meta-item">💾 8MB</div>
+        </div>
+        <div class="card-actions">
+          <button class="btn btn-primary" onclick="openModal('Ultra Low 8x8','https://i.imgur.com/gk3J9Zl.jpg','performance','Texture pack dengan resolusi 8x8 yang super ringan. Cocok banget untuk HP dengan spek rendah yang sering lag.','1.21','8MB','4.5')">Detail</button>
+          <a class="btn btn-secondary" href="#download">Download</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="no-results" id="noResults">
+    <div class="no-results-icon">😔</div>
+    <h3>Tidak Ada Hasil</h3>
+    <p>Coba kata kunci lain atau filter berbeda</p>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-content">
+    <div class="footer-links">
+      <a href="#">Tentang</a>
+      <a href="#">Kontak</a>
+      <a href="#">FAQ</a>
+      <a href="#">Tutorial Install</a>
+      <a href="#">Request Pack</a>
+    </div>
+    <div class="copyright">
+      © 2026 <strong>MCPE Texture Pack</strong> • Dibuat dengan ❤️ oleh <strong>Rully EnzaBison</strong>
+      <br>Semua texture pack 100% gratis dan aman digunakan
+    </div>
+  </div>
+</footer>
+
+<!-- MODAL -->
+<div class="modal" id="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <img id="modalImg" alt="Texture Pack">
+      <span class="close" onclick="closeModal()">×</span>
+    </div>
+    <div class="modal-body">
+      <h2 id="modalTitle"></h2>
+      <div class="modal-tags" id="modalTags"></div>
+      <p class="modal-description" id="modalDesc"></p>
+      
+      <div class="features">
+        <h4>✨ Fitur Unggulan:</h4>
+        <ul>
+          <li>Compatible dengan Minecraft PE versi <span id="modalVersion"></span></li>
+          <li>Mudah diinstall, cukup klik file .mcpack</li>
+          <li>100% aman, tanpa virus atau malware</li>
+          <li>Tidak perlu mod atau addon tambahan</li>
+          <li>Support Android & iOS</li>
+          <li>Update rutin mengikuti versi game terbaru</li>
+        </ul>
+      </div>
+      
+      <div class="download-box">
+        <h3>🎁 Download Gratis</h3>
+        <a href="#download" class="btn" onclick="trackDownload()">
+          DOWNLOAD SEKARANG (.mcpack)
+        </a>
+        <div class="download-info">
+          📦 Ukuran: <span id="modalSize"></span> • ⭐ Rating: <span id="modalRating"></span>/5 • 🔒 100% Aman
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+let currentFilter = 'all';
+
+function openModal(title, img, category, desc, version, size, rating){
+  document.getElementById('modalTitle').innerText = title;
+  document.getElementById('modalImg').src = img;
+  document.getElementById('modalDesc').innerText = desc;
+  document.getElementById('modalVersion').innerText = version;
+  document.getElementById('modalSize').innerText = size;
+  document.getElementById('modalRating').innerText = rating;
+  
+  const tagsContainer = document.getElementById('modalTags');
+  tagsContainer.innerHTML = `<span class="tag">${capitalizeFirst(category)}</span>`;
+  
+  const modal = document.getElementById('modal');
+  modal.classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal(){
+  const modal = document.getElementById('modal');
+  modal.classList.remove('show');
+  document.body.style.overflow = 'auto';
+}
+
+function capitalizeFirst(str){
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+function searchPack(query){
+  query = query.toLowerCase().trim();
+  const cards = document.querySelectorAll('.card');
+  let visibleCount = 0;
+  
+  cards.forEach(card => {
+    const name = card.dataset.name.toLowerCase();
+    const category = card.dataset.category.toLowerCase();
+    
+    const matchesSearch = !query || name.includes(query) || category.includes(query);
+    const matchesFilter = currentFilter === 'all' || 
+                         card.dataset.category === currentFilter ||
+                         (currentFilter === 'new' && card.dataset.new === 'true');
+    
+    if(matchesSearch && matchesFilter){
+      card.style.display = 'block';
+      visibleCount++;
+    } else {
+      card.style.display = 'none';
+    }
+  });
+  
+  document.getElementById('noResults').classList.toggle('show', visibleCount === 0);
+}
+
+function filterPacks(category){
+  currentFilter = category;
+  
+  // Update active button
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.classList.remove('active');
+    if(btn.dataset.filter === category){
+      btn.classList.add('active');
+    }
+  });
+  
+  document.querySelectorAll('nav a').forEach(link => {
+    link.classList.remove('active');
+  });
+  
+  // Re-apply search with new filter
+  const searchInput = document.getElementById('searchInput');
+  searchPack(searchInput.value);
+}
+
+function trackDownload(){
+  console.log('Download tracked');
+  // Add analytics tracking here
+}
+
+// Close modal when clicking outside
+document.getElementById('modal').addEventListener('click', function(e){
+  if(e.target === this){
+    closeModal();
+  }
+});
+
+// Close modal with Escape key
+document.addEventListener('keydown', function(e){
+  if(e.key === 'Escape'){
+    closeModal();
+  }
+});
+
+// Update total packs count
+window.addEventListener('DOMContentLoaded', function(){
+  const totalCards = document.querySelectorAll('.card').length;
+  document.getElementById('totalPacks').textContent = totalCards + '+';
+});
+
+// Smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function(e){
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute('href'));
+    if(target){
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+</script>
+
+</body>
+</html>
