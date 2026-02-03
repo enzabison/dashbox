@@ -1,1303 +1,982 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DashBox MCPE - ItsDonline</title>
-
-<style>
-:root {
-  --orange: #FF8C00;
-  --orange-dark: #E67E00;
-  --orange-light: #FFA500;
-  --bg-main: #fdfdfd;
-  --bg-card: #fff;
-  --text-dark: #333;
-  --text-light: #666;
-  --border-color: #ddd;
-  --shadow-sm: 0 2px 5px rgba(0,0,0,0.1);
-  --shadow-md: 0 4px 10px rgba(0,0,0,0.05);
-  --shadow-lg: 0 4px 12px rgba(0,0,0,0.2);
-}
-
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  background: var(--bg-main);
-  padding-bottom: 60px;
-  overflow-x: hidden;
-}
-
-/* NAVBAR */
-.navbar {
-  background: linear-gradient(135deg, var(--orange) 0%, var(--orange-light) 100%);
-  padding: 15px 20px;
-  color: #fff;
-  font-weight: bold;
-  text-align: center;
-  box-shadow: var(--shadow-sm);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: sticky;
-  top: 0;
-  z-index: 999;
-}
-
-.navbar-title {
-  font-size: 20px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.help-main-btn {
-  position: absolute;
-  right: 15px;
-  cursor: pointer;
-  font-size: 20px;
-  background: rgba(255,255,255,0.2);
-  padding: 8px 12px;
-  border-radius: 10px;
-  transition: all 0.3s ease;
-  border: 2px solid transparent;
-}
-
-.help-main-btn:hover {
-  background: rgba(255,255,255,0.35);
-  border-color: rgba(255,255,255,0.5);
-  transform: scale(1.05);
-}
-
-.help-main-btn:active {
-  transform: scale(0.95);
-}
-
-/* CONTAINER & CARD */
-.container {
-  padding: 20px;
-  max-width: 500px;
-  margin: auto;
-}
-
-.card {
-  background: var(--bg-card);
-  padding: 30px;
-  border-radius: 20px;
-  box-shadow: var(--shadow-md);
-  text-align: center;
-  border: 1px solid #f0f0f0;
-}
-
-.card h2 {
-  color: var(--orange);
-  margin-top: 0;
-  margin-bottom: 20px;
-}
-
-/* INPUT FIELDS */
-input[type="text"],
-input[type="password"],
-input[type="file"],
-select {
-  width: 100%;
-  padding: 12px 15px;
-  border-radius: 12px;
-  border: 2px solid var(--border-color);
-  font-size: 14px;
-  transition: all 0.3s ease;
-  background: #fafafa;
-}
-
-input[type="text"]:focus,
-input[type="password"]:focus,
-select:focus {
-  outline: none;
-  border-color: var(--orange);
-  background: #fff;
-  box-shadow: 0 0 0 3px rgba(255, 140, 0, 0.1);
-}
-
-input[type="text"] + input,
-input[type="password"] + input {
-  margin-top: 12px;
-}
-
-/* BUTTONS */
-.btn {
-  width: 100%;
-  background: linear-gradient(135deg, var(--orange) 0%, var(--orange-dark) 100%);
-  color: #fff;
-  border: none;
-  padding: 14px 20px;
-  border-radius: 12px;
-  font-weight: bold;
-  cursor: pointer;
-  margin-top: 10px;
-  transition: all 0.3s ease;
-  font-size: 14px;
-  box-shadow: 0 4px 6px rgba(255, 140, 0, 0.2);
-}
-
-.btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 12px rgba(255, 140, 0, 0.3);
-}
-
-.btn:active {
-  transform: translateY(0);
-  opacity: 0.9;
-}
-
-.btn-secondary {
-  background: linear-gradient(135deg, #888 0%, #666 100%);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
-}
-
-.btn-danger {
-  background: linear-gradient(135deg, #ff4444 0%, #cc0000 100%);
-  box-shadow: 0 4px 6px rgba(255, 68, 68, 0.2);
-}
-
-.btn-small {
-  width: auto;
-  padding: 8px 14px;
-  margin: 0;
-  font-size: 12px;
-}
-
-/* KEY INFO */
-.key-info {
-  margin-top: 15px;
-  padding: 12px;
-  background: #fff9e6;
-  border-radius: 10px;
-  font-size: 13px;
-  border: 1px solid #ffe6b3;
-}
-
-/* OWNER PANEL */
-.owner-panel {
-  display: none;
-  background: linear-gradient(135deg, #fff9f0 0%, #ffedd5 100%);
-  padding: 25px;
-  border-radius: 15px;
-  border: 2px dashed var(--orange);
-  margin-bottom: 20px;
-  box-shadow: var(--shadow-md);
-}
-
-.owner-panel h3 {
-  margin-top: 0;
-  color: var(--orange);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-/* FILE ITEMS */
-.file-item {
-  display: flex;
-  align-items: center;
-  background: var(--bg-card);
-  border: 1px solid #eee;
-  padding: 15px;
-  border-radius: 12px;
-  margin-bottom: 10px;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.03);
-}
-
-.file-item:hover {
-  transform: translateX(5px);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.08);
-  border-color: var(--orange-light);
-}
-
-.file-icon {
-  font-size: 32px;
-  margin-right: 12px;
-}
-
-.file-info {
-  flex: 1;
-  text-align: left;
-}
-
-.file-info b {
-  display: block;
-  color: var(--text-dark);
-  font-size: 14px;
-  margin-bottom: 4px;
-  word-break: break-word;
-}
-
-.file-info small {
-  color: var(--text-light);
-  font-size: 12px;
-}
-
-.file-actions {
-  display: flex;
-  gap: 8px;
-}
-
-/* FOLDER SYSTEM */
-.folder-header {
-  background: linear-gradient(135deg, #f8f8f8 0%, #f0f0f0 100%);
-  padding: 15px;
-  border-radius: 12px;
-  margin-bottom: 10px;
-  cursor: pointer;
-  font-weight: bold;
-  color: var(--text-dark);
-  border: 2px solid var(--border-color);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  transition: all 0.3s ease;
-}
-
-.folder-header:hover {
-  border-color: var(--orange);
-  background: linear-gradient(135deg, #fff 0%, #f8f8f8 100%);
-  transform: translateX(3px);
-}
-
-.folder-header.active {
-  border-color: var(--orange);
-  background: linear-gradient(135deg, #fff9f0 0%, #ffedd5 100%);
-}
-
-.folder-title {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.folder-content {
-  display: none;
-  padding: 10px 0 15px 15px;
-  animation: slideDown 0.3s ease;
-}
-
-.folder-content.show {
-  display: block;
-}
-
-@keyframes slideDown {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* SECTION HEADERS */
-.section-header {
-  color: var(--text-dark);
-  margin: 25px 0 15px 0;
-  font-size: 18px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding-bottom: 10px;
-  border-bottom: 2px solid var(--orange);
-}
-
-/* HELP MODAL */
-#helpModal {
-  display: none;
-  position: fixed;
-  z-index: 10000;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.6);
-  backdrop-filter: blur(4px);
-  animation: fadeIn 0.3s ease;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-.modal-content {
-  background: var(--bg-card);
-  margin: 5% auto;
-  padding: 30px;
-  border-radius: 20px;
-  width: 90%;
-  max-width: 450px;
-  position: relative;
-  max-height: 80vh;
-  overflow-y: auto;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.3);
-  animation: slideUp 0.3s ease;
-}
-
-@keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.close-modal {
-  position: absolute;
-  right: 15px;
-  top: 15px;
-  font-size: 28px;
-  cursor: pointer;
-  color: #888;
-  transition: all 0.3s ease;
-  width: 35px;
-  height: 35px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-}
-
-.close-modal:hover {
-  color: var(--orange);
-  background: #f0f0f0;
-  transform: rotate(90deg);
-}
-
-.modal-content h3 {
-  color: var(--orange);
-  text-align: center;
-  margin-top: 0;
-}
-
-.help-item {
-  text-align: left;
-  margin-bottom: 20px;
-  padding: 15px;
-  background: #f9f9f9;
-  border-radius: 10px;
-  border-left: 4px solid var(--orange);
-}
-
-.help-item b {
-  color: var(--orange);
-  display: block;
-  margin-bottom: 8px;
-  font-size: 15px;
-}
-
-.help-item p {
-  margin: 0;
-  line-height: 1.6;
-  color: var(--text-dark);
-}
-
-/* CHAT SYSTEM */
-#chatBox {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  width: 320px;
-  background: var(--bg-card);
-  border: 2px solid var(--orange);
-  border-radius: 16px;
-  box-shadow: var(--shadow-lg);
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  height: 400px;
-  z-index: 1000;
-  transition: all 0.3s ease;
-}
-
-#chatBox.minimized {
-  height: 50px;
-}
-
-#chatBox.minimized #chatMessages,
-#chatBox.minimized #chatInputBox {
-  display: none;
-}
-
-#chatHeader {
-  background: linear-gradient(135deg, var(--orange) 0%, var(--orange-light) 100%);
-  color: #fff;
-  padding: 12px 15px;
-  font-weight: bold;
-  text-align: center;
-  position: relative;
-  cursor: grab;
-  user-select: none;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-}
-
-#chatHeader:active {
-  cursor: grabbing;
-}
-
-.chat-controls {
-  position: absolute;
-  right: 10px;
-  display: flex;
-  gap: 8px;
-}
-
-.chat-btn {
-  cursor: pointer;
-  padding: 4px 8px;
-  background: rgba(255,255,255,0.2);
-  border-radius: 6px;
-  transition: all 0.3s ease;
-}
-
-.chat-btn:hover {
-  background: rgba(255,255,255,0.35);
-  transform: scale(1.1);
-}
-
-#chatMessages {
-  flex: 1;
-  padding: 15px;
-  overflow-y: auto;
-  font-size: 13px;
-  background: #fafafa;
-}
-
-.message {
-  margin-bottom: 12px;
-  padding: 10px;
-  background: var(--bg-card);
-  border-radius: 10px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-  line-height: 1.5;
-  word-wrap: break-word;
-}
-
-.message b {
-  color: var(--orange);
-  margin-right: 5px;
-}
-
-.message-delete {
-  color: red;
-  cursor: pointer;
-  margin-left: 8px;
-  font-weight: bold;
-  transition: all 0.3s ease;
-}
-
-.message-delete:hover {
-  transform: scale(1.2);
-}
-
-#chatInputBox {
-  display: flex;
-  border-top: 1px solid #eee;
-  background: var(--bg-card);
-}
-
-#chatInputBox input {
-  flex: 1;
-  padding: 12px;
-  border: none;
-  outline: none;
-  font-size: 14px;
-  background: transparent;
-}
-
-#chatInputBox button {
-  padding: 12px 20px;
-  background: var(--orange);
-  color: #fff;
-  border: none;
-  cursor: pointer;
-  font-weight: bold;
-  transition: all 0.3s ease;
-}
-
-#chatInputBox button:hover {
-  background: var(--orange-dark);
-}
-
-/* FOOTER */
-.footer-left {
-  position: fixed;
-  bottom: 10px;
-  left: 10px;
-  font-size: 13px;
-  color: #888;
-  z-index: 999;
-  pointer-events: none;
-}
-
-.footer-left b {
-  color: var(--orange);
-}
-
-/* LOADING SPINNER */
-.spinner {
-  display: none;
-  width: 40px;
-  height: 40px;
-  margin: 20px auto;
-  border: 4px solid #f3f3f3;
-  border-top: 4px solid var(--orange);
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-/* TOAST NOTIFICATIONS */
-.toast {
-  position: fixed;
-  top: 80px;
-  right: 20px;
-  background: var(--bg-card);
-  padding: 15px 20px;
-  border-radius: 10px;
-  box-shadow: var(--shadow-lg);
-  z-index: 9999;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  animation: slideInRight 0.3s ease;
-  border-left: 4px solid var(--orange);
-}
-
-@keyframes slideInRight {
-  from {
-    opacity: 0;
-    transform: translateX(100px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-.toast.success { border-left-color: #4caf50; }
-.toast.error { border-left-color: #f44336; }
-.toast.warning { border-left-color: #ff9800; }
-
-/* EMPTY STATE */
-.empty-state {
-  text-align: center;
-  padding: 40px 20px;
-  color: var(--text-light);
-}
-
-.empty-state-icon {
-  font-size: 48px;
-  margin-bottom: 15px;
-  opacity: 0.5;
-}
-
-/* RESPONSIVE */
-@media (max-width: 480px) {
-  .container { padding: 15px; }
-  .card { padding: 20px; }
-  #chatBox { width: calc(100% - 40px); }
-  .modal-content { width: 95%; padding: 20px; }
-}
-
-/* SCROLLBAR CUSTOM */
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: #f1f1f1;
-  border-radius: 10px;
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--orange);
-  border-radius: 10px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--orange-dark);
-}
-
-/* USER BADGE */
-.user-badge {
-  display: inline-block;
-  padding: 5px 12px;
-  background: var(--orange);
-  color: white;
-  border-radius: 20px;
-  font-size: 12px;
-  margin-bottom: 15px;
-  font-weight: bold;
-}
-
-/* STATS */
-.stats-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-  gap: 15px;
-  margin: 20px 0;
-}
-
-.stat-card {
-  background: linear-gradient(135deg, #fff9f0 0%, #ffedd5 100%);
-  padding: 15px;
-  border-radius: 12px;
-  text-align: center;
-  border: 2px solid var(--orange-light);
-}
-
-.stat-number {
-  font-size: 24px;
-  font-weight: bold;
-  color: var(--orange);
-}
-
-.stat-label {
-  font-size: 12px;
-  color: var(--text-light);
-  margin-top: 5px;
-}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MCPE Texture Pack Download - Koleksi Terlengkap</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --primary:#10b981;
+      --primary-dark:#059669;
+      --accent:#fbbf24;
+      --dark:#0a0e27;
+      --card:#1a1f3a;
+      --bg:#050814;
+      --text:#f3f4f6;
+      --text-muted:#9ca3af;
+      --shadow:rgba(16,185,129,.2);
+    }
+    *{
+      box-sizing:border-box;
+      margin:0;
+      padding:0;
+    }
+    body{
+      font-family:'Outfit',sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.6;
+      overflow-x:hidden;
+    }
+    
+    /* Animated Background */
+    .bg-animation{
+      position:fixed;
+      inset:0;
+      z-index:0;
+      opacity:.15;
+      background:
+        radial-gradient(circle at 20% 50%,var(--primary) 0,transparent 50%),
+        radial-gradient(circle at 80% 80%,var(--accent) 0,transparent 50%);
+      animation:bgShift 15s ease-in-out infinite;
+    }
+    @keyframes bgShift{
+      0%,100%{transform:scale(1) rotate(0deg)}
+      50%{transform:scale(1.1) rotate(5deg)}
+    }
+    
+    /* Header */
+    header{
+      position:relative;
+      background:linear-gradient(135deg,rgba(16,185,129,.9),rgba(5,150,105,.9)),
+        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect fill="%23059669" width="100" height="100"/><g fill="%2310b981" opacity=".1"><rect x="0" y="0" width="10" height="10"/><rect x="20" y="20" width="10" height="10"/><rect x="40" y="0" width="10" height="10"/><rect x="60" y="20" width="10" height="10"/><rect x="80" y="0" width="10" height="10"/><rect x="10" y="10" width="10" height="10"/><rect x="30" y="30" width="10" height="10"/><rect x="50" y="10" width="10" height="10"/><rect x="70" y="30" width="10" height="10"/><rect x="90" y="10" width="10" height="10"/></g></svg>');
+      background-size:cover,80px 80px;
+      padding:60px 20px;
+      text-align:center;
+      box-shadow:0 10px 40px rgba(0,0,0,.5);
+      animation:headerFade 1s ease-out;
+    }
+    @keyframes headerFade{
+      from{opacity:0;transform:translateY(-20px)}
+      to{opacity:1;transform:translateY(0)}
+    }
+    header h1{
+      font-family:'Bebas Neue',sans-serif;
+      font-size:clamp(2.5em,8vw,5em);
+      letter-spacing:3px;
+      margin:0;
+      text-shadow:4px 4px 0 rgba(0,0,0,.3);
+      animation:titleSlide 1s ease-out .2s both;
+    }
+    @keyframes titleSlide{
+      from{opacity:0;transform:translateX(-50px)}
+      to{opacity:1;transform:translateX(0)}
+    }
+    header p{
+      font-size:1.2em;
+      margin:15px 0 0;
+      opacity:.95;
+      animation:fadeIn 1s ease-out .4s both;
+    }
+    @keyframes fadeIn{
+      from{opacity:0}
+      to{opacity:1}
+    }
+    
+    /* Navigation */
+    nav{
+      display:flex;
+      gap:12px;
+      justify-content:center;
+      margin-top:25px;
+      flex-wrap:wrap;
+      animation:fadeIn 1s ease-out .6s both;
+    }
+    nav a{
+      position:relative;
+      color:var(--dark);
+      background:#d1fae5;
+      padding:10px 20px;
+      border-radius:25px;
+      text-decoration:none;
+      font-weight:700;
+      font-size:.95em;
+      transition:all .3s cubic-bezier(.4,0,.2,1);
+      box-shadow:0 4px 12px rgba(0,0,0,.2);
+    }
+    nav a:hover{
+      background:var(--accent);
+      transform:translateY(-3px) scale(1.05);
+      box-shadow:0 8px 20px rgba(251,191,36,.4);
+    }
+    nav a.active{
+      background:var(--accent);
+      box-shadow:0 8px 20px rgba(251,191,36,.4);
+    }
+    
+    /* Stats Bar */
+    .stats{
+      display:flex;
+      justify-content:center;
+      gap:40px;
+      background:var(--card);
+      padding:25px;
+      margin:30px auto;
+      max-width:800px;
+      border-radius:20px;
+      box-shadow:0 10px 30px rgba(0,0,0,.3);
+      flex-wrap:wrap;
+      animation:slideUp .8s ease-out .8s both;
+    }
+    @keyframes slideUp{
+      from{opacity:0;transform:translateY(30px)}
+      to{opacity:1;transform:translateY(0)}
+    }
+    .stat{
+      text-align:center;
+    }
+    .stat-number{
+      font-family:'Bebas Neue',sans-serif;
+      font-size:2.5em;
+      color:var(--primary);
+      display:block;
+      line-height:1;
+    }
+    .stat-label{
+      font-size:.9em;
+      color:var(--text-muted);
+      margin-top:5px;
+    }
+    
+    /* Container */
+    .container{
+      position:relative;
+      z-index:1;
+      max-width:1300px;
+      margin:auto;
+      padding:40px 20px;
+    }
+    
+    /* Search */
+    .search-wrapper{
+      margin-bottom:35px;
+      display:flex;
+      justify-content:center;
+      animation:slideUp .8s ease-out 1s both;
+    }
+    .search-box{
+      position:relative;
+      width:100%;
+      max-width:600px;
+    }
+    .search-box input{
+      width:100%;
+      padding:18px 60px 18px 25px;
+      border-radius:50px;
+      border:2px solid var(--primary);
+      background:var(--card);
+      color:var(--text);
+      font-size:1.05em;
+      font-family:'Outfit',sans-serif;
+      outline:none;
+      transition:all .3s;
+      box-shadow:0 5px 20px rgba(0,0,0,.3);
+    }
+    .search-box input:focus{
+      border-color:var(--accent);
+      box-shadow:0 8px 30px var(--shadow);
+      transform:scale(1.02);
+    }
+    .search-icon{
+      position:absolute;
+      right:20px;
+      top:50%;
+      transform:translateY(-50%);
+      font-size:1.4em;
+      color:var(--primary);
+      pointer-events:none;
+    }
+    
+    /* Filter Tabs */
+    .filters{
+      display:flex;
+      gap:12px;
+      justify-content:center;
+      margin-bottom:30px;
+      flex-wrap:wrap;
+      animation:fadeIn 1s ease-out 1.2s both;
+    }
+    .filter-btn{
+      padding:10px 22px;
+      background:var(--card);
+      color:var(--text);
+      border:2px solid transparent;
+      border-radius:12px;
+      cursor:pointer;
+      font-weight:600;
+      font-size:.95em;
+      transition:all .3s;
+      font-family:'Outfit',sans-serif;
+    }
+    .filter-btn:hover{
+      border-color:var(--primary);
+      transform:translateY(-2px);
+    }
+    .filter-btn.active{
+      background:var(--primary);
+      color:var(--dark);
+      border-color:var(--primary);
+    }
+    
+    /* Grid */
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+      gap:28px;
+      animation:fadeIn 1s ease-out 1.4s both;
+    }
+    
+    /* Card */
+    .card{
+      position:relative;
+      background:var(--card);
+      border-radius:20px;
+      overflow:hidden;
+      box-shadow:0 10px 40px rgba(0,0,0,.4);
+      transition:all .4s cubic-bezier(.4,0,.2,1);
+      cursor:pointer;
+    }
+    .card:hover{
+      transform:translateY(-10px) scale(1.02);
+      box-shadow:0 20px 60px var(--shadow);
+    }
+    .card:hover .card-img{
+      transform:scale(1.1);
+    }
+    .card-img-wrapper{
+      position:relative;
+      width:100%;
+      height:200px;
+      overflow:hidden;
+      background:linear-gradient(135deg,var(--primary-dark),var(--primary));
+    }
+    .card-img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      transition:transform .6s cubic-bezier(.4,0,.2,1);
+    }
+    .card-badge{
+      position:absolute;
+      top:15px;
+      right:15px;
+      background:rgba(16,185,129,.95);
+      color:var(--dark);
+      padding:6px 14px;
+      border-radius:20px;
+      font-size:.8em;
+      font-weight:800;
+      backdrop-filter:blur(10px);
+      box-shadow:0 4px 15px rgba(0,0,0,.3);
+    }
+    .card-badge.new{
+      background:rgba(251,191,36,.95);
+      animation:pulse 2s infinite;
+    }
+    @keyframes pulse{
+      0%,100%{transform:scale(1)}
+      50%{transform:scale(1.05)}
+    }
+    .card-body{
+      padding:22px;
+    }
+    .card-body h3{
+      font-size:1.35em;
+      margin:0 0 10px;
+      font-weight:800;
+    }
+    .tag{
+      display:inline-block;
+      font-size:.75em;
+      background:rgba(16,185,129,.15);
+      color:var(--primary);
+      padding:5px 12px;
+      border-radius:8px;
+      margin-bottom:10px;
+      font-weight:600;
+      border:1px solid rgba(16,185,129,.3);
+    }
+    .card-body p{
+      font-size:.95em;
+      color:var(--text-muted);
+      margin:8px 0;
+    }
+    .meta{
+      display:flex;
+      gap:15px;
+      font-size:.85em;
+      color:var(--text-muted);
+      margin:12px 0;
+      flex-wrap:wrap;
+    }
+    .meta-item{
+      display:flex;
+      align-items:center;
+      gap:5px;
+    }
+    .rating{
+      color:var(--accent);
+      font-weight:700;
+    }
+    .card-actions{
+      display:flex;
+      gap:10px;
+      margin-top:15px;
+    }
+    .btn{
+      flex:1;
+      padding:12px;
+      text-align:center;
+      text-decoration:none;
+      border-radius:12px;
+      font-weight:700;
+      font-size:.9em;
+      transition:all .3s;
+      border:none;
+      cursor:pointer;
+      font-family:'Outfit',sans-serif;
+    }
+    .btn-primary{
+      background:var(--primary);
+      color:var(--dark);
+      box-shadow:0 4px 15px var(--shadow);
+    }
+    .btn-primary:hover{
+      background:var(--primary-dark);
+      transform:translateY(-2px);
+      box-shadow:0 8px 25px var(--shadow);
+    }
+    .btn-secondary{
+      background:transparent;
+      color:var(--primary);
+      border:2px solid var(--primary);
+    }
+    .btn-secondary:hover{
+      background:var(--primary);
+      color:var(--dark);
+    }
+    
+    /* Modal */
+    .modal{
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,.85);
+      backdrop-filter:blur(8px);
+      display:none;
+      justify-content:center;
+      align-items:center;
+      z-index:100;
+      padding:20px;
+      animation:fadeIn .3s ease-out;
+    }
+    .modal.show{
+      display:flex;
+    }
+    .modal-content{
+      background:var(--card);
+      border-radius:25px;
+      max-width:700px;
+      width:100%;
+      max-height:90vh;
+      overflow-y:auto;
+      position:relative;
+      box-shadow:0 25px 80px rgba(0,0,0,.7);
+      animation:modalSlide .4s cubic-bezier(.4,0,.2,1);
+    }
+    @keyframes modalSlide{
+      from{opacity:0;transform:translateY(50px) scale(.9)}
+      to{opacity:1;transform:translateY(0) scale(1)}
+    }
+    .modal-header{
+      position:relative;
+      height:250px;
+      overflow:hidden;
+      border-radius:25px 25px 0 0;
+    }
+    .modal-header img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+    .close{
+      position:absolute;
+      top:20px;
+      right:20px;
+      width:45px;
+      height:45px;
+      background:rgba(255,255,255,.95);
+      color:var(--dark);
+      border-radius:50%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:1.8em;
+      cursor:pointer;
+      transition:all .3s;
+      font-weight:700;
+      box-shadow:0 4px 15px rgba(0,0,0,.3);
+      z-index:1;
+    }
+    .close:hover{
+      transform:rotate(90deg) scale(1.1);
+      background:var(--accent);
+    }
+    .modal-body{
+      padding:30px;
+    }
+    .modal-body h2{
+      font-family:'Bebas Neue',sans-serif;
+      font-size:2.5em;
+      margin:0 0 15px;
+      letter-spacing:1px;
+    }
+    .modal-tags{
+      display:flex;
+      gap:8px;
+      margin-bottom:20px;
+      flex-wrap:wrap;
+    }
+    .modal-description{
+      color:var(--text-muted);
+      margin-bottom:25px;
+      line-height:1.8;
+    }
+    .features{
+      background:rgba(16,185,129,.08);
+      border-left:4px solid var(--primary);
+      padding:20px;
+      border-radius:12px;
+      margin-bottom:25px;
+    }
+    .features h4{
+      margin:0 0 12px;
+      color:var(--primary);
+      font-size:1.1em;
+    }
+    .features ul{
+      list-style:none;
+      padding:0;
+    }
+    .features li{
+      padding:8px 0;
+      padding-left:25px;
+      position:relative;
+      color:var(--text-muted);
+    }
+    .features li:before{
+      content:'✓';
+      position:absolute;
+      left:0;
+      color:var(--primary);
+      font-weight:700;
+      font-size:1.2em;
+    }
+    .download-box{
+      background:linear-gradient(135deg,var(--primary-dark),var(--primary));
+      padding:25px;
+      border-radius:15px;
+      text-align:center;
+    }
+    .download-box h3{
+      margin:0 0 15px;
+      font-family:'Bebas Neue',sans-serif;
+      font-size:1.8em;
+      letter-spacing:1px;
+    }
+    .download-box .btn{
+      display:inline-block;
+      padding:15px 40px;
+      background:var(--accent);
+      color:var(--dark);
+      font-weight:800;
+      border-radius:12px;
+      text-decoration:none;
+      font-size:1.1em;
+      transition:all .3s;
+      box-shadow:0 6px 20px rgba(0,0,0,.3);
+    }
+    .download-box .btn:hover{
+      transform:translateY(-3px) scale(1.05);
+      box-shadow:0 10px 30px rgba(251,191,36,.5);
+    }
+    .download-info{
+      margin-top:15px;
+      font-size:.9em;
+      opacity:.9;
+    }
+    
+    /* Footer */
+    footer{
+      position:relative;
+      z-index:1;
+      margin-top:60px;
+      background:var(--dark);
+      padding:40px 25px;
+      text-align:center;
+    }
+    .footer-content{
+      max-width:800px;
+      margin:auto;
+    }
+    .footer-links{
+      display:flex;
+      justify-content:center;
+      gap:25px;
+      margin-bottom:20px;
+      flex-wrap:wrap;
+    }
+    .footer-links a{
+      color:var(--text-muted);
+      text-decoration:none;
+      transition:color .3s;
+    }
+    .footer-links a:hover{
+      color:var(--primary);
+    }
+    .copyright{
+      font-size:.9em;
+      color:var(--text-muted);
+      margin-top:20px;
+    }
+    .copyright strong{
+      color:var(--primary);
+    }
+    
+    /* No Results */
+    .no-results{
+      display:none;
+      text-align:center;
+      padding:60px 20px;
+      color:var(--text-muted);
+    }
+    .no-results.show{
+      display:block;
+    }
+    .no-results-icon{
+      font-size:5em;
+      margin-bottom:20px;
+      opacity:.3;
+    }
+    .no-results h3{
+      margin:0 0 10px;
+      font-size:1.8em;
+    }
+    
+    /* Loading Animation */
+    .loading{
+      display:none;
+      justify-content:center;
+      align-items:center;
+      padding:60px;
+    }
+    .loading.show{
+      display:flex;
+    }
+    .spinner{
+      width:50px;
+      height:50px;
+      border:5px solid rgba(16,185,129,.2);
+      border-top-color:var(--primary);
+      border-radius:50%;
+      animation:spin 1s linear infinite;
+    }
+    @keyframes spin{
+      to{transform:rotate(360deg)}
+    }
+    
+    /* Responsive */
+    @media(max-width:768px){
+      header h1{font-size:2.5em}
+      .stats{gap:20px}
+      .stat-number{font-size:2em}
+      .grid{grid-template-columns:1fr}
+      .filters{gap:8px}
+      .filter-btn{padding:8px 16px;font-size:.9em}
+    }
+    
+    /* Scrollbar */
+    ::-webkit-scrollbar{width:10px}
+    ::-webkit-scrollbar-track{background:var(--dark)}
+    ::-webkit-scrollbar-thumb{background:var(--primary);border-radius:5px}
+    ::-webkit-scrollbar-thumb:hover{background:var(--primary-dark)}
+  </style>
 </head>
 <body>
 
-<!-- HELP MODAL -->
-<div id="helpModal">
-  <div class="modal-content">
-    <span class="close-modal" onclick="closeHelp()">&times;</span>
-    <h3>📚 User Guide</h3>
-    
-    <div class="help-item">
-      <b>🔐 1. How to Sign In</b>
-      <p>Enter your Username, Password, and the Key <b>itsdonline</b> to access your dashboard. New accounts will be automatically registered.</p>
-    </div>
-    
-    <div class="help-item">
-      <b>📁 2. Public & Private Files</b>
-      <p>Files in <b>Public</b> folders can be seen by everyone. Files in <b>My Files</b> are your personal storage.</p>
-    </div>
-    
-    <div class="help-item">
-      <b>👑 3. Creating Folders (Owner Only)</b>
-      <p>If you are the admin (donline), use the Owner Panel to create new folders to organize public files.</p>
-    </div>
-    
-    <div class="help-item">
-      <b>⬆️ 4. Uploading Files</b>
-      <p>Select a folder first from the dropdown, then click <b>Upload File</b> to add files. Files are stored in your browser.</p>
-    </div>
-    
-    <div class="help-item">
-      <b>💬 5. Chat Box</b>
-      <p>Drag the chat header to move it around. Click minimize button to collapse. Type a message and press Enter or <b>Kirim</b> to send.</p>
-    </div>
-    
-    <div class="help-item">
-      <b>⚠️ 6. Important Notes</b>
-      <p>All data is stored in your browser's localStorage. Clearing browser data will delete all files and messages.</p>
-    </div>
-    
-    <button class="btn" onclick="closeHelp()">Got it! ✓</button>
-  </div>
-</div>
+<div class="bg-animation"></div>
 
-<!-- NAVBAR -->
-<div class="navbar">
-  <div class="navbar-title">
-    ☁️ DashBox Cloud
-  </div>
-  <div class="help-main-btn" onclick="openHelp()">❓</div>
-</div>
+<header>
+  <h1>🎮 MCPE TEXTURE PACK</h1>
+  <p>Download texture pack Minecraft PE terbaru, aman & gratis</p>
+  <nav>
+    <a href="#" class="active" onclick="filterPacks('all')">Semua</a>
+    <a href="#" onclick="filterPacks('realistic')">Realistic</a>
+    <a href="#" onclick="filterPacks('performance')">FPS Boost</a>
+    <a href="#" onclick="filterPacks('pvp')">PvP</a>
+    <a href="#" onclick="filterPacks('new')">Terbaru</a>
+  </nav>
+</header>
 
-<!-- MAIN CONTAINER -->
 <div class="container">
-
-  <!-- LOGIN BOX -->
-  <div id="loginBox" class="card">
-    <h2>🔐 SIGN IN</h2>
-    <input id="username" type="text" placeholder="Username" autocomplete="username">
-    <input id="userpass" type="password" placeholder="Password Pribadi" autocomplete="current-password">
-    <input id="userkey" type="password" placeholder="Key DashBox: itsdonline" autocomplete="off">
-    
-    <div class="key-info">
-      🔑 <b>Key From:</b> itsdonline di channel youtube
+  
+  <div class="stats">
+    <div class="stat">
+      <span class="stat-number" id="totalPacks">50+</span>
+      <span class="stat-label">Total Packs</span>
     </div>
-    
-    <button class="btn" onclick="doLogin()">SIGN IN</button>
+    <div class="stat">
+      <span class="stat-number">1M+</span>
+      <span class="stat-label">Downloads</span>
+    </div>
+    <div class="stat">
+      <span class="stat-number">4.8★</span>
+      <span class="stat-label">Rating</span>
+    </div>
+    <div class="stat">
+      <span class="stat-number">100%</span>
+      <span class="stat-label">Gratis</span>
+    </div>
   </div>
 
-  <!-- DASHBOARD -->
-  <div id="dashboard" style="display:none">
-    
-    <!-- USER INFO -->
-    <div class="card" style="margin-bottom: 20px;">
-      <span class="user-badge" id="userBadge">👤 Guest</span>
-      <div class="stats-container">
-        <div class="stat-card">
-          <div class="stat-number" id="statPublic">0</div>
-          <div class="stat-label">Public Files</div>
+  <div class="search-wrapper">
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="Cari texture pack favorit kamu..." onkeyup="searchPack(this.value)">
+      <span class="search-icon">🔍</span>
+    </div>
+  </div>
+
+  <div class="filters">
+    <button class="filter-btn active" data-filter="all" onclick="filterPacks('all')">Semua</button>
+    <button class="filter-btn" data-filter="realistic" onclick="filterPacks('realistic')">Realistic</button>
+    <button class="filter-btn" data-filter="performance" onclick="filterPacks('performance')">Performance</button>
+    <button class="filter-btn" data-filter="pvp" onclick="filterPacks('pvp')">PvP</button>
+    <button class="filter-btn" data-filter="cartoon" onclick="filterPacks('cartoon')">Cartoon</button>
+    <button class="filter-btn" data-filter="new" onclick="filterPacks('new')">Terbaru</button>
+  </div>
+
+  <div class="loading">
+    <div class="spinner"></div>
+  </div>
+
+  <div class="grid" id="packList">
+
+    <div class="card" data-name="realistic craft" data-category="realistic" data-version="1.21" data-new="true">
+      <div class="card-img-wrapper">
+        <img class="card-img" src="https://i.imgur.com/8QZ7QZQ.jpg" alt="Realistic Craft">
+        <div class="card-badge new">NEW</div>
+      </div>
+      <div class="card-body">
+        <span class="tag">Realistic</span>
+        <h3>Realistic Craft HD</h3>
+        <p>Texture HD ultra realistis dengan detail tinggi, cocok untuk survival dan adventure mode.</p>
+        <div class="meta">
+          <div class="meta-item">📦 v1.21</div>
+          <div class="meta-item">📱 Android/iOS</div>
+          <div class="meta-item rating">⭐ 4.8/5</div>
+          <div class="meta-item">💾 45MB</div>
         </div>
-        <div class="stat-card">
-          <div class="stat-number" id="statPrivate">0</div>
-          <div class="stat-label">My Files</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-number" id="statFolders">0</div>
-          <div class="stat-label">Folders</div>
+        <div class="card-actions">
+          <button class="btn btn-primary" onclick="openModal('Realistic Craft HD','https://i.imgur.com/8QZ7QZQ.jpg','realistic','Texture pack realistis dengan resolusi HD yang menghadirkan pengalaman visual menakjubkan. Setiap blok didesain dengan detail tinggi, pencahayaan yang realistis, dan efek shadow yang memukau.','1.21','45MB','4.8')">Detail</button>
+          <a class="btn btn-secondary" href="#download">Download</a>
         </div>
       </div>
-      <button class="btn btn-secondary" onclick="logout()">LOGOUT 🚪</button>
     </div>
 
-    <!-- OWNER PANEL -->
-    <div id="adminPanel" class="owner-panel">
-      <h3>👑 OWNER PANEL</h3>
-      
-      <input id="newFolderName" type="text" placeholder="Nama Folder Baru" style="margin-bottom: 10px;">
-      <button class="btn" onclick="addFolder()">➕ TAMBAH FOLDER</button>
-      
-      <hr style="border: none; border-top: 1px dashed var(--orange); margin: 20px 0;">
-      
-      <input type="file" id="fileInput" hidden onchange="startUpload()">
-      <select id="folderSelect" style="margin-bottom: 10px;">
-        <option value="">Pilih Folder untuk Upload</option>
-      </select>
-      <button class="btn" onclick="fileInput.click()">⬆️ UPLOAD FILE</button>
+    <div class="card" data-name="fps boost" data-category="performance" data-version="1.21">
+      <div class="card-img-wrapper">
+        <img class="card-img" src="https://i.imgur.com/nxKZp6T.jpg" alt="FPS Boost">
+        <div class="card-badge">POPULAR</div>
+      </div>
+      <div class="card-body">
+        <span class="tag">Performance</span>
+        <h3>FPS Boost Pack</h3>
+        <p>Texture pack super ringan untuk HP kentang, boost FPS hingga 60+ dengan visual yang tetap keren.</p>
+        <div class="meta">
+          <div class="meta-item">📦 v1.21</div>
+          <div class="meta-item">📱 Android/iOS</div>
+          <div class="meta-item rating">⭐ 4.7/5</div>
+          <div class="meta-item">💾 15MB</div>
+        </div>
+        <div class="card-actions">
+          <button class="btn btn-primary" onclick="openModal('FPS Boost Pack','https://i.imgur.com/nxKZp6T.jpg','performance','Pack khusus untuk meningkatkan performa game. Texture dioptimasi untuk menghemat RAM dan CPU tanpa mengurangi kualitas visual secara signifikan.','1.21','15MB','4.7')">Detail</button>
+          <a class="btn btn-secondary" href="#download">Download</a>
+        </div>
+      </div>
     </div>
 
-    <!-- FILE LIST -->
-    <div id="list"></div>
+    <div class="card" data-name="pvp texture" data-category="pvp" data-version="1.21">
+      <div class="card-img-wrapper">
+        <img class="card-img" src="https://i.imgur.com/YW7QZKp.jpg" alt="PvP Pack">
+        <div class="card-badge">HOT</div>
+      </div>
+      <div class="card-body">
+        <span class="tag">PvP</span>
+        <h3>PvP Texture Pack Pro</h3>
+        <p>UI bersih, sword terlihat jelas, efek hit optimal. Perfect untuk war dan kompetisi PvP.</p>
+        <div class="meta">
+          <div class="meta-item">📦 v1.21</div>
+          <div class="meta-item">📱 Android/iOS</div>
+          <div class="meta-item rating">⭐ 4.9/5</div>
+          <div class="meta-item">💾 25MB</div>
+        </div>
+        <div class="card-actions">
+          <button class="btn btn-primary" onclick="openModal('PvP Texture Pack Pro','https://i.imgur.com/YW7QZKp.jpg','pvp','Texture pack dirancang khusus untuk PvP dengan interface yang clean, weapon yang jelas terlihat, dan efek yang tidak mengganggu konsentrasi saat bertarung.','1.21','25MB','4.9')">Detail</button>
+          <a class="btn btn-secondary" href="#download">Download</a>
+        </div>
+      </div>
+    </div>
 
+    <div class="card" data-name="anime craft" data-category="cartoon" data-version="1.21" data-new="true">
+      <div class="card-img-wrapper">
+        <img class="card-img" src="https://i.imgur.com/Q8m3vZx.jpg" alt="Anime Craft">
+        <div class="card-badge new">NEW</div>
+      </div>
+      <div class="card-body">
+        <span class="tag">Cartoon</span>
+        <h3>Anime Craft Style</h3>
+        <p>Texture pack dengan gaya anime/cartoon yang colorful dan eye-catching. Bikin dunia minecraft jadi lebih cheerful!</p>
+        <div class="meta">
+          <div class="meta-item">📦 v1.21</div>
+          <div class="meta-item">📱 Android/iOS</div>
+          <div class="meta-item rating">⭐ 4.6/5</div>
+          <div class="meta-item">💾 35MB</div>
+        </div>
+        <div class="card-actions">
+          <button class="btn btn-primary" onclick="openModal('Anime Craft Style','https://i.imgur.com/Q8m3vZx.jpg','cartoon','Texture pack dengan aesthetic anime yang colorful dan fun. Cocok untuk player yang suka style cartoon dan warna-warna cerah.','1.21','35MB','4.6')">Detail</button>
+          <a class="btn btn-secondary" href="#download">Download</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" data-name="dark modern" data-category="realistic" data-version="1.21">
+      <div class="card-img-wrapper">
+        <img class="card-img" src="https://i.imgur.com/5kF8xGp.jpg" alt="Dark Modern">
+        <div class="card-badge">PREMIUM</div>
+      </div>
+      <div class="card-body">
+        <span class="tag">Realistic</span>
+        <h3>Dark Modern Texture</h3>
+        <p>Texture modern dengan tema dark yang elegan. Perfect untuk build modern dan futuristic.</p>
+        <div class="meta">
+          <div class="meta-item">📦 v1.21</div>
+          <div class="meta-item">📱 Android/iOS</div>
+          <div class="meta-item rating">⭐ 4.7/5</div>
+          <div class="meta-item">💾 38MB</div>
+        </div>
+        <div class="card-actions">
+          <button class="btn btn-primary" onclick="openModal('Dark Modern Texture','https://i.imgur.com/5kF8xGp.jpg','realistic','Pack dengan tema dark modern yang cocok untuk build-build futuristic. Texture detail dengan warna gelap yang elegan.','1.21','38MB','4.7')">Detail</button>
+          <a class="btn btn-secondary" href="#download">Download</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" data-name="ultra low" data-category="performance" data-version="1.21">
+      <div class="card-img-wrapper">
+        <img class="card-img" src="https://i.imgur.com/gk3J9Zl.jpg" alt="Ultra Low">
+        <div class="card-badge">LITE</div>
+      </div>
+      <div class="card-body">
+        <span class="tag">Performance</span>
+        <h3>Ultra Low 8x8</h3>
+        <p>Texture 8x8 paling ringan! Game lancar jaya di HP kentang sekalipun. No lag guaranteed!</p>
+        <div class="meta">
+          <div class="meta-item">📦 v1.21</div>
+          <div class="meta-item">📱 Android/iOS</div>
+          <div class="meta-item rating">⭐ 4.5/5</div>
+          <div class="meta-item">💾 8MB</div>
+        </div>
+        <div class="card-actions">
+          <button class="btn btn-primary" onclick="openModal('Ultra Low 8x8','https://i.imgur.com/gk3J9Zl.jpg','performance','Texture pack dengan resolusi 8x8 yang super ringan. Cocok banget untuk HP dengan spek rendah yang sering lag.','1.21','8MB','4.5')">Detail</button>
+          <a class="btn btn-secondary" href="#download">Download</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="no-results" id="noResults">
+    <div class="no-results-icon">😔</div>
+    <h3>Tidak Ada Hasil</h3>
+    <p>Coba kata kunci lain atau filter berbeda</p>
   </div>
 
 </div>
 
-<!-- CHAT BOX -->
-<div id="chatBox">
-  <div id="chatHeader">
-    💬 Chat
-    <div class="chat-controls">
-      <span class="chat-btn" onclick="toggleChat()">➖</span>
-      <span id="adminChatBtn" class="chat-btn" onclick="clearChat()" style="display:none;">🗑️</span>
+<footer>
+  <div class="footer-content">
+    <div class="footer-links">
+      <a href="#">Tentang</a>
+      <a href="#">Kontak</a>
+      <a href="#">FAQ</a>
+      <a href="#">Tutorial Install</a>
+      <a href="#">Request Pack</a>
+    </div>
+    <div class="copyright">
+      © 2026 <strong>MCPE Texture Pack</strong> • Dibuat dengan ❤️ oleh <strong>Rully EnzaBison</strong>
+      <br>Semua texture pack 100% gratis dan aman digunakan
     </div>
   </div>
-  <div id="chatMessages"></div>
-  <div id="chatInputBox">
-    <input id="chatInput" placeholder="Pesan..." onkeypress="if(event.key==='Enter')sendMessage()"/>
-    <button onclick="sendMessage()">Kirim</button>
+</footer>
+
+<!-- MODAL -->
+<div class="modal" id="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <img id="modalImg" alt="Texture Pack">
+      <span class="close" onclick="closeModal()">×</span>
+    </div>
+    <div class="modal-body">
+      <h2 id="modalTitle"></h2>
+      <div class="modal-tags" id="modalTags"></div>
+      <p class="modal-description" id="modalDesc"></p>
+      
+      <div class="features">
+        <h4>✨ Fitur Unggulan:</h4>
+        <ul>
+          <li>Compatible dengan Minecraft PE versi <span id="modalVersion"></span></li>
+          <li>Mudah diinstall, cukup klik file .mcpack</li>
+          <li>100% aman, tanpa virus atau malware</li>
+          <li>Tidak perlu mod atau addon tambahan</li>
+          <li>Support Android & iOS</li>
+          <li>Update rutin mengikuti versi game terbaru</li>
+        </ul>
+      </div>
+      
+      <div class="download-box">
+        <h3>🎁 Download Gratis</h3>
+        <a href="#download" class="btn" onclick="trackDownload()">
+          DOWNLOAD SEKARANG (.mcpack)
+        </a>
+        <div class="download-info">
+          📦 Ukuran: <span id="modalSize"></span> • ⭐ Rating: <span id="modalRating"></span>/5 • 🔒 100% Aman
+        </div>
+      </div>
+    </div>
   </div>
 </div>
-
-<!-- FOOTER -->
-<div class="footer-left">by : <b>donline</b></div>
 
 <script>
-// ==================== DATA MANAGEMENT ====================
-let publicFiles = JSON.parse(localStorage.getItem("publicFiles") || "{}");
-let userFiles   = JSON.parse(localStorage.getItem("userFiles") || "{}");
-let chatData    = JSON.parse(localStorage.getItem("chatData") || "[]");
-let accounts    = JSON.parse(localStorage.getItem("accounts") || "{}");
-let chatPos     = JSON.parse(localStorage.getItem("chatPos") || '{"x": "auto", "y": "auto"}');
+let currentFilter = 'all';
 
-// Initialize default admin account
-if (!accounts["donline"]) {
-  accounts["donline"] = "Ara*1102*Rck";
-  userFiles["donline"] = [];
-}
-
-let currentUser = "";
-let isAdmin = false;
-let chatMinimized = false;
-
-// ==================== UTILITY FUNCTIONS ====================
-function saveAll() {
-  localStorage.setItem("publicFiles", JSON.stringify(publicFiles));
-  localStorage.setItem("userFiles", JSON.stringify(userFiles));
-  localStorage.setItem("chatData", JSON.stringify(chatData));
-  localStorage.setItem("accounts", JSON.stringify(accounts));
-  localStorage.setItem("chatPos", JSON.stringify(chatPos));
-}
-
-function showToast(message, type = 'success') {
-  const toast = document.createElement('div');
-  toast.className = `toast ${type}`;
+function openModal(title, img, category, desc, version, size, rating){
+  document.getElementById('modalTitle').innerText = title;
+  document.getElementById('modalImg').src = img;
+  document.getElementById('modalDesc').innerText = desc;
+  document.getElementById('modalVersion').innerText = version;
+  document.getElementById('modalSize').innerText = size;
+  document.getElementById('modalRating').innerText = rating;
   
-  const icons = {
-    success: '✓',
-    error: '✗',
-    warning: '⚠'
-  };
+  const tagsContainer = document.getElementById('modalTags');
+  tagsContainer.innerHTML = `<span class="tag">${capitalizeFirst(category)}</span>`;
   
-  toast.innerHTML = `<span style="font-size: 20px;">${icons[type] || '•'}</span><span>${message}</span>`;
-  document.body.appendChild(toast);
-  
-  setTimeout(() => {
-    toast.style.animation = 'slideInRight 0.3s ease reverse';
-    setTimeout(() => toast.remove(), 300);
-  }, 3000);
+  const modal = document.getElementById('modal');
+  modal.classList.add('show');
+  document.body.style.overflow = 'hidden';
 }
 
-function getFileIcon(filename) {
-  const ext = filename.split('.').pop().toLowerCase();
-  const iconMap = {
-    'pdf': '📄',
-    'doc': '📝', 'docx': '📝',
-    'xls': '📊', 'xlsx': '📊',
-    'ppt': '📽️', 'pptx': '📽️',
-    'jpg': '🖼️', 'jpeg': '🖼️', 'png': '🖼️', 'gif': '🖼️',
-    'mp4': '🎥', 'avi': '🎥', 'mov': '🎥',
-    'mp3': '🎵', 'wav': '🎵',
-    'zip': '📦', 'rar': '📦',
-    'txt': '📃',
-    'html': '🌐', 'css': '🎨', 'js': '⚡'
-  };
-  return iconMap[ext] || '📁';
+function closeModal(){
+  const modal = document.getElementById('modal');
+  modal.classList.remove('show');
+  document.body.style.overflow = 'auto';
 }
 
-function updateStats() {
-  let publicCount = 0;
-  Object.values(publicFiles).forEach(files => publicCount += files.length);
+function capitalizeFirst(str){
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+function searchPack(query){
+  query = query.toLowerCase().trim();
+  const cards = document.querySelectorAll('.card');
+  let visibleCount = 0;
   
-  const privateCount = (userFiles[currentUser] || []).length;
-  const folderCount = Object.keys(publicFiles).length;
+  cards.forEach(card => {
+    const name = card.dataset.name.toLowerCase();
+    const category = card.dataset.category.toLowerCase();
+    
+    const matchesSearch = !query || name.includes(query) || category.includes(query);
+    const matchesFilter = currentFilter === 'all' || 
+                         card.dataset.category === currentFilter ||
+                         (currentFilter === 'new' && card.dataset.new === 'true');
+    
+    if(matchesSearch && matchesFilter){
+      card.style.display = 'block';
+      visibleCount++;
+    } else {
+      card.style.display = 'none';
+    }
+  });
   
-  document.getElementById('statPublic').textContent = publicCount;
-  document.getElementById('statPrivate').textContent = privateCount;
-  document.getElementById('statFolders').textContent = folderCount;
+  document.getElementById('noResults').classList.toggle('show', visibleCount === 0);
 }
 
-// ==================== MODAL FUNCTIONS ====================
-function openHelp() {
-  document.getElementById('helpModal').style.display = 'block';
+function filterPacks(category){
+  currentFilter = category;
+  
+  // Update active button
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.classList.remove('active');
+    if(btn.dataset.filter === category){
+      btn.classList.add('active');
+    }
+  });
+  
+  document.querySelectorAll('nav a').forEach(link => {
+    link.classList.remove('active');
+  });
+  
+  // Re-apply search with new filter
+  const searchInput = document.getElementById('searchInput');
+  searchPack(searchInput.value);
 }
 
-function closeHelp() {
-  document.getElementById('helpModal').style.display = 'none';
+function trackDownload(){
+  console.log('Download tracked');
+  // Add analytics tracking here
 }
 
 // Close modal when clicking outside
-window.onclick = function(event) {
-  const modal = document.getElementById('helpModal');
-  if (event.target === modal) {
-    closeHelp();
+document.getElementById('modal').addEventListener('click', function(e){
+  if(e.target === this){
+    closeModal();
   }
-}
+});
 
-// ==================== AUTHENTICATION ====================
-function doLogin() {
-  const u = document.getElementById('username').value.trim();
-  const p = document.getElementById('userpass').value.trim();
-  const k = document.getElementById('userkey').value.trim().toLowerCase();
-  
-  if (k !== "itsdonline") {
-    showToast("Invalid Key! Use: itsdonline", 'error');
-    return;
+// Close modal with Escape key
+document.addEventListener('keydown', function(e){
+  if(e.key === 'Escape'){
+    closeModal();
   }
-  
-  if (!u || !p) {
-    showToast("Please fill all fields!", 'warning');
-    return;
-  }
-  
-  // Check existing account
-  if (accounts[u]) {
-    if (accounts[u] !== p) {
-      showToast("❌ Wrong password!", 'error');
-      return;
+});
+
+// Update total packs count
+window.addEventListener('DOMContentLoaded', function(){
+  const totalCards = document.querySelectorAll('.card').length;
+  document.getElementById('totalPacks').textContent = totalCards + '+';
+});
+
+// Smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function(e){
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute('href'));
+    if(target){
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
-  } else {
-    // Register new account
-    accounts[u] = p;
-    userFiles[u] = [];
-    showToast(`✅ Welcome ${u}! Account registered successfully!`, 'success');
-  }
-  
-  currentUser = u;
-  
-  // Check admin privileges
-  if (u.toLowerCase() === "donline") {
-    isAdmin = true;
-    document.getElementById('adminPanel').style.display = "block";
-    document.getElementById("adminChatBtn").style.display = "inline-block";
-    updateFolderSelect();
-  }
-  
-  saveAll();
-  
-  // Update UI
-  document.getElementById('userBadge').innerHTML = `👤 ${currentUser}${isAdmin ? ' 👑' : ''}`;
-  document.getElementById('loginBox').style.display = "none";
-  document.getElementById('dashboard').style.display = "block";
-  
-  renderFiles();
-  renderChat();
-  updateStats();
-}
-
-function logout() {
-  if (confirm('Are you sure you want to logout?')) {
-    location.reload();
-  }
-}
-
-// ==================== FOLDER MANAGEMENT ====================
-function addFolder() {
-  const folderName = document.getElementById('newFolderName').value.trim();
-  
-  if (!folderName) {
-    showToast("Folder name cannot be empty!", 'warning');
-    return;
-  }
-  
-  if (publicFiles[folderName]) {
-    showToast("Folder already exists!", 'error');
-    return;
-  }
-  
-  publicFiles[folderName] = [];
-  document.getElementById('newFolderName').value = "";
-  
-  saveAll();
-  updateFolderSelect();
-  renderFiles();
-  updateStats();
-  
-  showToast(`Folder "${folderName}" created successfully!`, 'success');
-}
-
-function removeFolder(folder) {
-  if (confirm(`Delete folder "${folder}" and all its files?`)) {
-    delete publicFiles[folder];
-    saveAll();
-    updateFolderSelect();
-    renderFiles();
-    updateStats();
-    showToast(`Folder "${folder}" deleted!`, 'success');
-  }
-}
-
-function updateFolderSelect() {
-  const folderSelect = document.getElementById('folderSelect');
-  folderSelect.innerHTML = '<option value="">Pilih Folder untuk Upload</option>';
-  
-  Object.keys(publicFiles).forEach(f => {
-    folderSelect.innerHTML += `<option value="${f}">📁 ${f}</option>`;
   });
-}
-
-function toggleFolder(folderName) {
-  const folderContent = document.getElementById(`folder-${folderName}`);
-  const folderHeader = folderContent.previousElementSibling;
-  
-  folderContent.classList.toggle('show');
-  folderHeader.classList.toggle('active');
-}
-
-// ==================== FILE MANAGEMENT ====================
-function startUpload() {
-  const fileInput = document.getElementById('fileInput');
-  const f = fileInput.files[0];
-  
-  if (!f) return;
-  
-  const selectedFolder = document.getElementById('folderSelect').value;
-  
-  if (!selectedFolder) {
-    showToast("Please select a folder first!", 'warning');
-    return;
-  }
-  
-  // Check file size (limit to 10MB for localStorage)
-  if (f.size > 10 * 1024 * 1024) {
-    showToast("File too large! Maximum 10MB", 'error');
-    return;
-  }
-  
-  const reader = new FileReader();
-  
-  reader.onload = e => {
-    const data = {
-      name: f.name,
-      size: (f.size / 1024).toFixed(1) + " KB",
-      data: e.target.result,
-      uploadedBy: currentUser,
-      uploadDate: new Date().toLocaleString('id-ID')
-    };
-    
-    publicFiles[selectedFolder].push(data);
-    saveAll();
-    renderFiles();
-    updateStats();
-    
-    showToast(`File "${f.name}" uploaded successfully!`, 'success');
-  };
-  
-  reader.onerror = () => {
-    showToast("Failed to read file!", 'error');
-  };
-  
-  reader.readAsDataURL(f);
-  fileInput.value = ""; // Reset input
-}
-
-function renderFiles() {
-  const list = document.getElementById('list');
-  list.innerHTML = "";
-  
-  // Public Files Section
-  list.innerHTML += '<h4 class="section-header">🌐 Public Files</h4>';
-  
-  const folderKeys = Object.keys(publicFiles);
-  
-  if (folderKeys.length === 0) {
-    list.innerHTML += `
-      <div class="empty-state">
-        <div class="empty-state-icon">📂</div>
-        <p>No public folders yet</p>
-      </div>`;
-  } else {
-    folderKeys.forEach(folder => {
-      const files = publicFiles[folder];
-      
-      list.innerHTML += `
-        <div class="folder-header" onclick="toggleFolder('${folder}')">
-          <div class="folder-title">
-            <span>📁</span>
-            <span>${folder}</span>
-            <span style="color: var(--text-light); font-size: 12px;">(${files.length})</span>
-          </div>
-          ${isAdmin ? `<button class="btn btn-danger btn-small" onclick="event.stopPropagation(); removeFolder('${folder}')">Delete</button>` : ''}
-        </div>
-        <div class="folder-content" id="folder-${folder}">
-          ${files.length === 0 ? '<div class="empty-state" style="padding: 20px;"><p>Empty folder</p></div>' : 
-            files.map((f, i) => createFileBox(f, `downloadFile(publicFiles['${folder}'][${i}])`, isAdmin ? `removePublic('${folder}',${i})` : "")).join('')}
-        </div>`;
-    });
-  }
-  
-  // Private Files Section
-  list.innerHTML += '<h4 class="section-header">👤 My Files</h4>';
-  
-  const myFiles = userFiles[currentUser] || [];
-  
-  if (myFiles.length === 0) {
-    list.innerHTML += `
-      <div class="empty-state">
-        <div class="empty-state-icon">📄</div>
-        <p>You don't have any personal files yet</p>
-      </div>`;
-  } else {
-    myFiles.forEach((f, i) => {
-      list.innerHTML += createFileBox(f, `downloadFile(userFiles['${currentUser}'][${i}])`, `removePrivate(${i})`);
-    });
-  }
-}
-
-function createFileBox(file, downloadAction, deleteAction) {
-  const icon = getFileIcon(file.name);
-  
-  return `
-    <div class="file-item">
-      <div class="file-icon">${icon}</div>
-      <div class="file-info">
-        <b>${file.name}</b>
-        <small>${file.size}${file.uploadDate ? ` • ${file.uploadDate}` : ''}</small>
-      </div>
-      <div class="file-actions">
-        <button class="btn btn-small" onclick="${downloadAction}">💾 SAVE</button>
-        ${deleteAction ? `<button class="btn btn-danger btn-small" onclick="${deleteAction}">✗</button>` : ''}
-      </div>
-    </div>`;
-}
-
-function removePublic(folder, i) {
-  if (confirm('Delete this file?')) {
-    publicFiles[folder].splice(i, 1);
-    saveAll();
-    renderFiles();
-    updateStats();
-    showToast('File deleted!', 'success');
-  }
-}
-
-function removePrivate(i) {
-  if (confirm('Delete this file?')) {
-    userFiles[currentUser].splice(i, 1);
-    saveAll();
-    renderFiles();
-    updateStats();
-    showToast('File deleted!', 'success');
-  }
-}
-
-async function downloadFile(f) {
-  try {
-    const res = await fetch(f.data);
-    const blob = await res.blob();
-    const file = new File([blob], f.name, { type: blob.type });
-    
-    if (navigator.canShare && navigator.canShare({ files: [file] })) {
-      await navigator.share({ files: [file] });
-    } else {
-      const a = document.createElement("a");
-      a.href = f.data;
-      a.download = f.name;
-      a.click();
-    }
-    
-    showToast(`Downloading ${f.name}...`, 'success');
-  } catch (e) {
-    showToast("Download failed!", 'error');
-  }
-}
-
-// ==================== CHAT SYSTEM ====================
-function sendMessage() {
-  const chatInput = document.getElementById('chatInput');
-  const message = chatInput.value.trim();
-  
-  if (!message) return;
-  
-  chatData.push({
-    u: currentUser || "Guest",
-    t: message,
-    time: new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })
-  });
-  
-  chatInput.value = "";
-  saveAll();
-  renderChat();
-}
-
-function renderChat() {
-  const chatMessages = document.getElementById('chatMessages');
-  
-  if (chatData.length === 0) {
-    chatMessages.innerHTML = '<div class="empty-state" style="padding: 20px;"><p>No messages yet</p></div>';
-  } else {
-    chatMessages.innerHTML = chatData.map((m, i) => `
-      <div class="message">
-        <b>${m.u}</b>
-        <small style="color: #888; margin-left: 5px;">${m.time || ''}</small>: 
-        ${m.t}
-        ${isAdmin ? `<span class="message-delete" onclick="deleteChat(${i})">✖</span>` : ''}
-      </div>
-    `).join('');
-  }
-  
-  chatMessages.scrollTop = chatMessages.scrollHeight;
-}
-
-function clearChat() {
-  if (confirm("Clear all chat messages?")) {
-    chatData = [];
-    saveAll();
-    renderChat();
-    showToast('Chat cleared!', 'success');
-  }
-}
-
-function deleteChat(i) {
-  chatData.splice(i, 1);
-  saveAll();
-  renderChat();
-}
-
-function toggleChat() {
-  chatMinimized = !chatMinimized;
-  document.getElementById('chatBox').classList.toggle('minimized');
-}
-
-// ==================== CHAT DRAGGING ====================
-const chatBox = document.getElementById('chatBox');
-
-// Restore saved position
-if (chatPos.x !== "auto") {
-  chatBox.style.left = chatPos.x + "px";
-  chatBox.style.top = chatPos.y + "px";
-  chatBox.style.bottom = "auto";
-  chatBox.style.right = "auto";
-}
-
-let isDragging = false;
-let offsetX, offsetY;
-
-function startDrag(e) {
-  const clientX = e.type === 'touchstart' ? e.touches[0].clientX : e.clientX;
-  const clientY = e.type === 'touchstart' ? e.touches[0].clientY : e.clientY;
-  
-  isDragging = true;
-  offsetX = clientX - chatBox.offsetLeft;
-  offsetY = clientY - chatBox.offsetTop;
-  
-  chatBox.style.transition = 'none';
-}
-
-function onDrag(e) {
-  if (!isDragging) return;
-  
-  if (e.type === 'touchmove') e.preventDefault();
-  
-  const clientX = e.type === 'touchmove' ? e.touches[0].clientX : e.clientX;
-  const clientY = e.type === 'touchmove' ? e.touches[0].clientY : e.clientY;
-  
-  let x = clientX - offsetX;
-  let y = clientY - offsetY;
-  
-  // Boundary constraints
-  x = Math.max(0, Math.min(x, window.innerWidth - chatBox.offsetWidth));
-  y = Math.max(0, Math.min(y, window.innerHeight - chatBox.offsetHeight));
-  
-  chatBox.style.left = x + 'px';
-  chatBox.style.top = y + 'px';
-  chatBox.style.right = 'auto';
-  chatBox.style.bottom = 'auto';
-  
-  chatPos = { x, y };
-}
-
-function stopDrag() {
-  if (isDragging) {
-    isDragging = false;
-    chatBox.style.transition = 'all 0.3s ease';
-    saveAll();
-  }
-}
-
-// Mouse events
-document.getElementById('chatHeader').addEventListener('mousedown', startDrag);
-document.addEventListener('mousemove', onDrag);
-document.addEventListener('mouseup', stopDrag);
-
-// Touch events
-document.getElementById('chatHeader').addEventListener('touchstart', startDrag, { passive: false });
-document.addEventListener('touchmove', onDrag, { passive: false });
-document.addEventListener('touchend', stopDrag);
-
-// ==================== INITIALIZE ====================
-renderChat();
+});
 </script>
 
 </body>
