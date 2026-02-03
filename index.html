@@ -6,150 +6,1234 @@
 <title>DashBox MCPE - ItsDonline</title>
 
 <style>
-:root{--orange:#FF8C00}
-body{margin:0;font-family:sans-serif;background:#fdfdfd;padding-bottom: 60px; overflow-x: hidden;}
+:root {
+  --orange: #FF8C00;
+  --orange-dark: #E67E00;
+  --orange-light: #FFA500;
+  --bg-main: #fdfdfd;
+  --bg-card: #fff;
+  --text-dark: #333;
+  --text-light: #666;
+  --border-color: #ddd;
+  --shadow-sm: 0 2px 5px rgba(0,0,0,0.1);
+  --shadow-md: 0 4px 10px rgba(0,0,0,0.05);
+  --shadow-lg: 0 4px 12px rgba(0,0,0,0.2);
+}
 
-/* NAVBAR WITH HELP BUTTON */
-.navbar{background:var(--orange);padding:15px;color:#fff;font-weight:bold;text-align:center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); display: flex; justify-content: center; align-items: center; position: relative;}
-.help-main-btn { position: absolute; right: 15px; cursor: pointer; font-size: 20px; background: rgba(255,255,255,0.2); padding: 5px 10px; border-radius: 8px; transition: 0.3s; }
-.help-main-btn:hover { background: rgba(255,255,255,0.4); }
+* {
+  box-sizing: border-box;
+}
 
-.container{padding:20px;max-width:450px;margin:auto}
-.card{background:#fff;padding:25px;border-radius:20px;box-shadow:0 4px 10px rgba(0,0,0,.05);text-align:center}
-.btn{width:100%;background:var(--orange);color:#fff;border:none;padding:14px;border-radius:12px;font-weight:bold;cursor:pointer;margin-top:10px; transition: 0.3s;}
-.btn:active{transform: scale(0.98); opacity: 0.9;}
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background: var(--bg-main);
+  padding-bottom: 60px;
+  overflow-x: hidden;
+}
+
+/* NAVBAR */
+.navbar {
+  background: linear-gradient(135deg, var(--orange) 0%, var(--orange-light) 100%);
+  padding: 15px 20px;
+  color: #fff;
+  font-weight: bold;
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+}
+
+.navbar-title {
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.help-main-btn {
+  position: absolute;
+  right: 15px;
+  cursor: pointer;
+  font-size: 20px;
+  background: rgba(255,255,255,0.2);
+  padding: 8px 12px;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.help-main-btn:hover {
+  background: rgba(255,255,255,0.35);
+  border-color: rgba(255,255,255,0.5);
+  transform: scale(1.05);
+}
+
+.help-main-btn:active {
+  transform: scale(0.95);
+}
+
+/* CONTAINER & CARD */
+.container {
+  padding: 20px;
+  max-width: 500px;
+  margin: auto;
+}
+
+.card {
+  background: var(--bg-card);
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: var(--shadow-md);
+  text-align: center;
+  border: 1px solid #f0f0f0;
+}
+
+.card h2 {
+  color: var(--orange);
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+/* INPUT FIELDS */
+input[type="text"],
+input[type="password"],
+input[type="file"],
+select {
+  width: 100%;
+  padding: 12px 15px;
+  border-radius: 12px;
+  border: 2px solid var(--border-color);
+  font-size: 14px;
+  transition: all 0.3s ease;
+  background: #fafafa;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus,
+select:focus {
+  outline: none;
+  border-color: var(--orange);
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(255, 140, 0, 0.1);
+}
+
+input[type="text"] + input,
+input[type="password"] + input {
+  margin-top: 12px;
+}
+
+/* BUTTONS */
+.btn {
+  width: 100%;
+  background: linear-gradient(135deg, var(--orange) 0%, var(--orange-dark) 100%);
+  color: #fff;
+  border: none;
+  padding: 14px 20px;
+  border-radius: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: all 0.3s ease;
+  font-size: 14px;
+  box-shadow: 0 4px 6px rgba(255, 140, 0, 0.2);
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(255, 140, 0, 0.3);
+}
+
+.btn:active {
+  transform: translateY(0);
+  opacity: 0.9;
+}
+
+.btn-secondary {
+  background: linear-gradient(135deg, #888 0%, #666 100%);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+}
+
+.btn-danger {
+  background: linear-gradient(135deg, #ff4444 0%, #cc0000 100%);
+  box-shadow: 0 4px 6px rgba(255, 68, 68, 0.2);
+}
+
+.btn-small {
+  width: auto;
+  padding: 8px 14px;
+  margin: 0;
+  font-size: 12px;
+}
+
+/* KEY INFO */
+.key-info {
+  margin-top: 15px;
+  padding: 12px;
+  background: #fff9e6;
+  border-radius: 10px;
+  font-size: 13px;
+  border: 1px solid #ffe6b3;
+}
 
 /* OWNER PANEL */
-.owner-panel{display:none;background:#fff9f0;padding:20px;border-radius:15px;border:2px dashed var(--orange);margin-bottom:20px}
-.file-item{display:flex;align-items:center;background:#fff;border:1px solid #eee;padding:12px;border-radius:12px;margin-bottom:10px}
-.file-info{flex:1;text-align:left}
-.file-btn{width:auto;padding:8px 12px;margin-left:5px;font-size:12px}
+.owner-panel {
+  display: none;
+  background: linear-gradient(135deg, #fff9f0 0%, #ffedd5 100%);
+  padding: 25px;
+  border-radius: 15px;
+  border: 2px dashed var(--orange);
+  margin-bottom: 20px;
+  box-shadow: var(--shadow-md);
+}
 
-/* HELP MODAL */
-#helpModal { display: none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); }
-.modal-content { background: #fff; margin: 10% auto; padding: 25px; border-radius: 20px; width: 85%; max-width: 400px; position: relative; max-height: 70vh; overflow-y: auto; }
-.close-modal { position: absolute; right: 15px; top: 10px; font-size: 24px; cursor: pointer; color: #888; }
-.help-item { text-align: left; margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 10px; }
-.help-item b { color: var(--orange); display: block; margin-bottom: 5px; }
+.owner-panel h3 {
+  margin-top: 0;
+  color: var(--orange);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
 
-/* CHAT SYSTEM */
-#chatBox{position:fixed;bottom:20px;right:20px;width:280px;background:#fff;border:2px solid var(--orange);border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,.2);overflow:hidden;display:flex;flex-direction:column;height:300px;z-index:1000; touch-action: none;}
-#chatHeader{background:var(--orange);color:#fff;padding:10px;font-weight:bold;text-align:center;position:relative;cursor: grab; user-select: none; display: flex; justify-content: center; align-items: center;}
-#adminChatBtn{position:absolute; right:10px; cursor:pointer; display:none;}
-#chatMessages{flex:1;padding:10px;overflow-y:auto;font-size:13px; background: #fff;}
-#chatInputBox{display:flex;border-top:1px solid #eee}
-#chatInputBox input{flex:1;padding:10px;border:none;outline:none}
-#chatInputBox button{padding:10px;background:var(--orange);color:#fff;border:none; cursor: pointer;}
+/* FILE ITEMS */
+.file-item {
+  display: flex;
+  align-items: center;
+  background: var(--bg-card);
+  border: 1px solid #eee;
+  padding: 15px;
+  border-radius: 12px;
+  margin-bottom: 10px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+}
+
+.file-item:hover {
+  transform: translateX(5px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+  border-color: var(--orange-light);
+}
+
+.file-icon {
+  font-size: 32px;
+  margin-right: 12px;
+}
+
+.file-info {
+  flex: 1;
+  text-align: left;
+}
+
+.file-info b {
+  display: block;
+  color: var(--text-dark);
+  font-size: 14px;
+  margin-bottom: 4px;
+  word-break: break-word;
+}
+
+.file-info small {
+  color: var(--text-light);
+  font-size: 12px;
+}
+
+.file-actions {
+  display: flex;
+  gap: 8px;
+}
 
 /* FOLDER SYSTEM */
-.folder-header{background:#f0f0f0;padding:10px;border-radius:8px;margin-bottom:10px;cursor:pointer;font-weight:bold;color:#333;border:1px solid #ddd; display: flex; justify-content: space-between; align-items: center;}
-.folder-content{display:none;padding-left:10px; margin-bottom: 15px;}
-.folder-content.show{display:block;}
+.folder-header {
+  background: linear-gradient(135deg, #f8f8f8 0%, #f0f0f0 100%);
+  padding: 15px;
+  border-radius: 12px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  color: var(--text-dark);
+  border: 2px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.3s ease;
+}
 
-.footer-left {position: fixed; bottom: 10px; left: 10px; font-size: 13px; color: #888; z-index: 999; pointer-events: none;}
+.folder-header:hover {
+  border-color: var(--orange);
+  background: linear-gradient(135deg, #fff 0%, #f8f8f8 100%);
+  transform: translateX(3px);
+}
+
+.folder-header.active {
+  border-color: var(--orange);
+  background: linear-gradient(135deg, #fff9f0 0%, #ffedd5 100%);
+}
+
+.folder-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.folder-content {
+  display: none;
+  padding: 10px 0 15px 15px;
+  animation: slideDown 0.3s ease;
+}
+
+.folder-content.show {
+  display: block;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* SECTION HEADERS */
+.section-header {
+  color: var(--text-dark);
+  margin: 25px 0 15px 0;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--orange);
+}
+
+/* HELP MODAL */
+#helpModal {
+  display: none;
+  position: fixed;
+  z-index: 10000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(4px);
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.modal-content {
+  background: var(--bg-card);
+  margin: 5% auto;
+  padding: 30px;
+  border-radius: 20px;
+  width: 90%;
+  max-width: 450px;
+  position: relative;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.close-modal {
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  font-size: 28px;
+  cursor: pointer;
+  color: #888;
+  transition: all 0.3s ease;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.close-modal:hover {
+  color: var(--orange);
+  background: #f0f0f0;
+  transform: rotate(90deg);
+}
+
+.modal-content h3 {
+  color: var(--orange);
+  text-align: center;
+  margin-top: 0;
+}
+
+.help-item {
+  text-align: left;
+  margin-bottom: 20px;
+  padding: 15px;
+  background: #f9f9f9;
+  border-radius: 10px;
+  border-left: 4px solid var(--orange);
+}
+
+.help-item b {
+  color: var(--orange);
+  display: block;
+  margin-bottom: 8px;
+  font-size: 15px;
+}
+
+.help-item p {
+  margin: 0;
+  line-height: 1.6;
+  color: var(--text-dark);
+}
+
+/* CHAT SYSTEM */
+#chatBox {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 320px;
+  background: var(--bg-card);
+  border: 2px solid var(--orange);
+  border-radius: 16px;
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 400px;
+  z-index: 1000;
+  transition: all 0.3s ease;
+}
+
+#chatBox.minimized {
+  height: 50px;
+}
+
+#chatBox.minimized #chatMessages,
+#chatBox.minimized #chatInputBox {
+  display: none;
+}
+
+#chatHeader {
+  background: linear-gradient(135deg, var(--orange) 0%, var(--orange-light) 100%);
+  color: #fff;
+  padding: 12px 15px;
+  font-weight: bold;
+  text-align: center;
+  position: relative;
+  cursor: grab;
+  user-select: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+#chatHeader:active {
+  cursor: grabbing;
+}
+
+.chat-controls {
+  position: absolute;
+  right: 10px;
+  display: flex;
+  gap: 8px;
+}
+
+.chat-btn {
+  cursor: pointer;
+  padding: 4px 8px;
+  background: rgba(255,255,255,0.2);
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.chat-btn:hover {
+  background: rgba(255,255,255,0.35);
+  transform: scale(1.1);
+}
+
+#chatMessages {
+  flex: 1;
+  padding: 15px;
+  overflow-y: auto;
+  font-size: 13px;
+  background: #fafafa;
+}
+
+.message {
+  margin-bottom: 12px;
+  padding: 10px;
+  background: var(--bg-card);
+  border-radius: 10px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  line-height: 1.5;
+  word-wrap: break-word;
+}
+
+.message b {
+  color: var(--orange);
+  margin-right: 5px;
+}
+
+.message-delete {
+  color: red;
+  cursor: pointer;
+  margin-left: 8px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.message-delete:hover {
+  transform: scale(1.2);
+}
+
+#chatInputBox {
+  display: flex;
+  border-top: 1px solid #eee;
+  background: var(--bg-card);
+}
+
+#chatInputBox input {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  background: transparent;
+}
+
+#chatInputBox button {
+  padding: 12px 20px;
+  background: var(--orange);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+#chatInputBox button:hover {
+  background: var(--orange-dark);
+}
+
+/* FOOTER */
+.footer-left {
+  position: fixed;
+  bottom: 10px;
+  left: 10px;
+  font-size: 13px;
+  color: #888;
+  z-index: 999;
+  pointer-events: none;
+}
+
+.footer-left b {
+  color: var(--orange);
+}
+
+/* LOADING SPINNER */
+.spinner {
+  display: none;
+  width: 40px;
+  height: 40px;
+  margin: 20px auto;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid var(--orange);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* TOAST NOTIFICATIONS */
+.toast {
+  position: fixed;
+  top: 80px;
+  right: 20px;
+  background: var(--bg-card);
+  padding: 15px 20px;
+  border-radius: 10px;
+  box-shadow: var(--shadow-lg);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  animation: slideInRight 0.3s ease;
+  border-left: 4px solid var(--orange);
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.toast.success { border-left-color: #4caf50; }
+.toast.error { border-left-color: #f44336; }
+.toast.warning { border-left-color: #ff9800; }
+
+/* EMPTY STATE */
+.empty-state {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text-light);
+}
+
+.empty-state-icon {
+  font-size: 48px;
+  margin-bottom: 15px;
+  opacity: 0.5;
+}
+
+/* RESPONSIVE */
+@media (max-width: 480px) {
+  .container { padding: 15px; }
+  .card { padding: 20px; }
+  #chatBox { width: calc(100% - 40px); }
+  .modal-content { width: 95%; padding: 20px; }
+}
+
+/* SCROLLBAR CUSTOM */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--orange);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--orange-dark);
+}
+
+/* USER BADGE */
+.user-badge {
+  display: inline-block;
+  padding: 5px 12px;
+  background: var(--orange);
+  color: white;
+  border-radius: 20px;
+  font-size: 12px;
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+
+/* STATS */
+.stats-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 15px;
+  margin: 20px 0;
+}
+
+.stat-card {
+  background: linear-gradient(135deg, #fff9f0 0%, #ffedd5 100%);
+  padding: 15px;
+  border-radius: 12px;
+  text-align: center;
+  border: 2px solid var(--orange-light);
+}
+
+.stat-number {
+  font-size: 24px;
+  font-weight: bold;
+  color: var(--orange);
+}
+
+.stat-label {
+  font-size: 12px;
+  color: var(--text-light);
+  margin-top: 5px;
+}
 </style>
 </head>
 <body>
 
+<!-- HELP MODAL -->
 <div id="helpModal">
   <div class="modal-content">
     <span class="close-modal" onclick="closeHelp()">&times;</span>
-    <h3 style="color:var(--orange); text-align:center;">User Guide</h3>
+    <h3>📚 User Guide</h3>
     
     <div class="help-item">
-      <b>1. How to Sign In</b>
-      Enter your Username, Password, and the Key (itsdonline) to access your dashboard.
-    </div>
-    <div class="help-item">
-      <b>2. Public & Private Files</b>
-      Files in 'Public' can be seen by everyone. Files in 'My Files' are your personal storage.
-    </div>
-    <div class="help-item">
-      <b>3. Creating Folders (Owner Only)</b>
-      If you are the admin, use the Owner Panel to create new folders to organize files.
-    </div>
-    <div class="help-item">
-      <b>4. Uploading Files</b>
-      Select a folder first, then click 'Upload File'.
-    </div>
-    <div class="help-item">
-      <b>5. Chat Box</b>
-      You can drag the chat header to move it. Type a message and press Enter or 'Kirim' to send.
+      <b>🔐 1. How to Sign In</b>
+      <p>Enter your Username, Password, and the Key <b>itsdonline</b> to access your dashboard. New accounts will be automatically registered.</p>
     </div>
     
-    <button class="btn" onclick="closeHelp()">Got it!</button>
+    <div class="help-item">
+      <b>📁 2. Public & Private Files</b>
+      <p>Files in <b>Public</b> folders can be seen by everyone. Files in <b>My Files</b> are your personal storage.</p>
+    </div>
+    
+    <div class="help-item">
+      <b>👑 3. Creating Folders (Owner Only)</b>
+      <p>If you are the admin (donline), use the Owner Panel to create new folders to organize public files.</p>
+    </div>
+    
+    <div class="help-item">
+      <b>⬆️ 4. Uploading Files</b>
+      <p>Select a folder first from the dropdown, then click <b>Upload File</b> to add files. Files are stored in your browser.</p>
+    </div>
+    
+    <div class="help-item">
+      <b>💬 5. Chat Box</b>
+      <p>Drag the chat header to move it around. Click minimize button to collapse. Type a message and press Enter or <b>Kirim</b> to send.</p>
+    </div>
+    
+    <div class="help-item">
+      <b>⚠️ 6. Important Notes</b>
+      <p>All data is stored in your browser's localStorage. Clearing browser data will delete all files and messages.</p>
+    </div>
+    
+    <button class="btn" onclick="closeHelp()">Got it! ✓</button>
   </div>
 </div>
 
+<!-- NAVBAR -->
 <div class="navbar">
-  DashBox Cloud
+  <div class="navbar-title">
+    ☁️ DashBox Cloud
+  </div>
   <div class="help-main-btn" onclick="openHelp()">❓</div>
 </div>
 
+<!-- MAIN CONTAINER -->
 <div class="container">
 
- <div id="loginBox" class="card">
-  <h2 style="color:var(--orange)">SIGN IN</h2>
-  <input id="username" placeholder="Username" style="width:100%;padding:12px;border-radius:10px;border:1px solid #ddd;box-sizing:border-box">
-  <input id="userpass" type="password" placeholder="Password Pribadi" style="width:100%;padding:12px;margin-top:10px;border-radius:10px;border:1px solid #ddd;box-sizing:border-box">
-  <input id="userkey" type="password" placeholder="Key DashBox: itsdonline" style="width:100%;padding:12px;margin-top:10px;border-radius:10px;border:1px solid #ddd;box-sizing:border-box">
-  
-  <div class="key-info" style="margin-top: 10px; font-size: 12px;">🔑 <b>Key From:</b> itsdonline di channel youtube</div>
-  <button class="btn" onclick="doLogin()">SIGN IN</button>
- </div>
-
- <div id="dashboard" style="display:none">
-  <div id="adminPanel" class="owner-panel">
-   <b>OWNER PANEL</b><br><br>
-   <input id="newFolderName" placeholder="Nama Folder Baru" style="width:100%;padding:10px;border-radius:10px;border:1px solid #ddd;margin-bottom:10px; box-sizing: border-box;">
-   <button class="btn" onclick="addFolder()">TAMBAH FOLDER</button><br><br>
-   
-   <input type="file" id="fileInput" hidden onchange="startUpload()">
-   <select id="folderSelect" style="width:100%;padding:10px;border-radius:10px;border:1px solid #ddd;margin-bottom:10px;">
-    <option value="">Pilih Folder untuk Upload</option>
-   </select>
-   <button class="btn" onclick="fileInput.click()">UPLOAD FILE</button>
+  <!-- LOGIN BOX -->
+  <div id="loginBox" class="card">
+    <h2>🔐 SIGN IN</h2>
+    <input id="username" type="text" placeholder="Username" autocomplete="username">
+    <input id="userpass" type="password" placeholder="Password Pribadi" autocomplete="current-password">
+    <input id="userkey" type="password" placeholder="Key DashBox: itsdonline" autocomplete="off">
+    
+    <div class="key-info">
+      🔑 <b>Key From:</b> itsdonline di channel youtube
+    </div>
+    
+    <button class="btn" onclick="doLogin()">SIGN IN</button>
   </div>
 
-  <button class="btn" style="background:#888; margin-bottom:20px;" onclick="logout()">LOGOUT</button>
-  <div id="list"></div>
- </div>
+  <!-- DASHBOARD -->
+  <div id="dashboard" style="display:none">
+    
+    <!-- USER INFO -->
+    <div class="card" style="margin-bottom: 20px;">
+      <span class="user-badge" id="userBadge">👤 Guest</span>
+      <div class="stats-container">
+        <div class="stat-card">
+          <div class="stat-number" id="statPublic">0</div>
+          <div class="stat-label">Public Files</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" id="statPrivate">0</div>
+          <div class="stat-label">My Files</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" id="statFolders">0</div>
+          <div class="stat-label">Folders</div>
+        </div>
+      </div>
+      <button class="btn btn-secondary" onclick="logout()">LOGOUT 🚪</button>
+    </div>
 
- <div id="chatBox">
+    <!-- OWNER PANEL -->
+    <div id="adminPanel" class="owner-panel">
+      <h3>👑 OWNER PANEL</h3>
+      
+      <input id="newFolderName" type="text" placeholder="Nama Folder Baru" style="margin-bottom: 10px;">
+      <button class="btn" onclick="addFolder()">➕ TAMBAH FOLDER</button>
+      
+      <hr style="border: none; border-top: 1px dashed var(--orange); margin: 20px 0;">
+      
+      <input type="file" id="fileInput" hidden onchange="startUpload()">
+      <select id="folderSelect" style="margin-bottom: 10px;">
+        <option value="">Pilih Folder untuk Upload</option>
+      </select>
+      <button class="btn" onclick="fileInput.click()">⬆️ UPLOAD FILE</button>
+    </div>
+
+    <!-- FILE LIST -->
+    <div id="list"></div>
+
+  </div>
+
+</div>
+
+<!-- CHAT BOX -->
+<div id="chatBox">
   <div id="chatHeader">
     💬 Chat
-    <span id="adminChatBtn" onclick="clearChat()">🗑️</span>
+    <div class="chat-controls">
+      <span class="chat-btn" onclick="toggleChat()">➖</span>
+      <span id="adminChatBtn" class="chat-btn" onclick="clearChat()" style="display:none;">🗑️</span>
+    </div>
   </div>
   <div id="chatMessages"></div>
   <div id="chatInputBox">
     <input id="chatInput" placeholder="Pesan..." onkeypress="if(event.key==='Enter')sendMessage()"/>
     <button onclick="sendMessage()">Kirim</button>
   </div>
- </div>
-
 </div>
 
-<div class="footer-left">by : <b style="color:#FF8C00">donline</b></div>
+<!-- FOOTER -->
+<div class="footer-left">by : <b>donline</b></div>
 
 <script>
+// ==================== DATA MANAGEMENT ====================
 let publicFiles = JSON.parse(localStorage.getItem("publicFiles") || "{}");
 let userFiles   = JSON.parse(localStorage.getItem("userFiles") || "{}");
 let chatData    = JSON.parse(localStorage.getItem("chatData") || "[]");
 let accounts    = JSON.parse(localStorage.getItem("accounts") || "{}");
 let chatPos     = JSON.parse(localStorage.getItem("chatPos") || '{"x": "auto", "y": "auto"}');
 
+// Initialize default admin account
 if (!accounts["donline"]) {
-    accounts["donline"] = "Ara*1102*Rck";
-    userFiles["donline"] = [];
+  accounts["donline"] = "Ara*1102*Rck";
+  userFiles["donline"] = [];
 }
 
 let currentUser = "";
 let isAdmin = false;
+let chatMinimized = false;
 
-function openHelp() { document.getElementById('helpModal').style.display = 'block'; }
-function closeHelp() { document.getElementById('helpModal').style.display = 'none'; }
+// ==================== UTILITY FUNCTIONS ====================
+function saveAll() {
+  localStorage.setItem("publicFiles", JSON.stringify(publicFiles));
+  localStorage.setItem("userFiles", JSON.stringify(userFiles));
+  localStorage.setItem("chatData", JSON.stringify(chatData));
+  localStorage.setItem("accounts", JSON.stringify(accounts));
+  localStorage.setItem("chatPos", JSON.stringify(chatPos));
+}
 
+function showToast(message, type = 'success') {
+  const toast = document.createElement('div');
+  toast.className = `toast ${type}`;
+  
+  const icons = {
+    success: '✓',
+    error: '✗',
+    warning: '⚠'
+  };
+  
+  toast.innerHTML = `<span style="font-size: 20px;">${icons[type] || '•'}</span><span>${message}</span>`;
+  document.body.appendChild(toast);
+  
+  setTimeout(() => {
+    toast.style.animation = 'slideInRight 0.3s ease reverse';
+    setTimeout(() => toast.remove(), 300);
+  }, 3000);
+}
+
+function getFileIcon(filename) {
+  const ext = filename.split('.').pop().toLowerCase();
+  const iconMap = {
+    'pdf': '📄',
+    'doc': '📝', 'docx': '📝',
+    'xls': '📊', 'xlsx': '📊',
+    'ppt': '📽️', 'pptx': '📽️',
+    'jpg': '🖼️', 'jpeg': '🖼️', 'png': '🖼️', 'gif': '🖼️',
+    'mp4': '🎥', 'avi': '🎥', 'mov': '🎥',
+    'mp3': '🎵', 'wav': '🎵',
+    'zip': '📦', 'rar': '📦',
+    'txt': '📃',
+    'html': '🌐', 'css': '🎨', 'js': '⚡'
+  };
+  return iconMap[ext] || '📁';
+}
+
+function updateStats() {
+  let publicCount = 0;
+  Object.values(publicFiles).forEach(files => publicCount += files.length);
+  
+  const privateCount = (userFiles[currentUser] || []).length;
+  const folderCount = Object.keys(publicFiles).length;
+  
+  document.getElementById('statPublic').textContent = publicCount;
+  document.getElementById('statPrivate').textContent = privateCount;
+  document.getElementById('statFolders').textContent = folderCount;
+}
+
+// ==================== MODAL FUNCTIONS ====================
+function openHelp() {
+  document.getElementById('helpModal').style.display = 'block';
+}
+
+function closeHelp() {
+  document.getElementById('helpModal').style.display = 'none';
+}
+
+// Close modal when clicking outside
+window.onclick = function(event) {
+  const modal = document.getElementById('helpModal');
+  if (event.target === modal) {
+    closeHelp();
+  }
+}
+
+// ==================== AUTHENTICATION ====================
+function doLogin() {
+  const u = document.getElementById('username').value.trim();
+  const p = document.getElementById('userpass').value.trim();
+  const k = document.getElementById('userkey').value.trim().toLowerCase();
+  
+  if (k !== "itsdonline") {
+    showToast("Invalid Key! Use: itsdonline", 'error');
+    return;
+  }
+  
+  if (!u || !p) {
+    showToast("Please fill all fields!", 'warning');
+    return;
+  }
+  
+  // Check existing account
+  if (accounts[u]) {
+    if (accounts[u] !== p) {
+      showToast("❌ Wrong password!", 'error');
+      return;
+    }
+  } else {
+    // Register new account
+    accounts[u] = p;
+    userFiles[u] = [];
+    showToast(`✅ Welcome ${u}! Account registered successfully!`, 'success');
+  }
+  
+  currentUser = u;
+  
+  // Check admin privileges
+  if (u.toLowerCase() === "donline") {
+    isAdmin = true;
+    document.getElementById('adminPanel').style.display = "block";
+    document.getElementById("adminChatBtn").style.display = "inline-block";
+    updateFolderSelect();
+  }
+  
+  saveAll();
+  
+  // Update UI
+  document.getElementById('userBadge').innerHTML = `👤 ${currentUser}${isAdmin ? ' 👑' : ''}`;
+  document.getElementById('loginBox').style.display = "none";
+  document.getElementById('dashboard').style.display = "block";
+  
+  renderFiles();
+  renderChat();
+  updateStats();
+}
+
+function logout() {
+  if (confirm('Are you sure you want to logout?')) {
+    location.reload();
+  }
+}
+
+// ==================== FOLDER MANAGEMENT ====================
+function addFolder() {
+  const folderName = document.getElementById('newFolderName').value.trim();
+  
+  if (!folderName) {
+    showToast("Folder name cannot be empty!", 'warning');
+    return;
+  }
+  
+  if (publicFiles[folderName]) {
+    showToast("Folder already exists!", 'error');
+    return;
+  }
+  
+  publicFiles[folderName] = [];
+  document.getElementById('newFolderName').value = "";
+  
+  saveAll();
+  updateFolderSelect();
+  renderFiles();
+  updateStats();
+  
+  showToast(`Folder "${folderName}" created successfully!`, 'success');
+}
+
+function removeFolder(folder) {
+  if (confirm(`Delete folder "${folder}" and all its files?`)) {
+    delete publicFiles[folder];
+    saveAll();
+    updateFolderSelect();
+    renderFiles();
+    updateStats();
+    showToast(`Folder "${folder}" deleted!`, 'success');
+  }
+}
+
+function updateFolderSelect() {
+  const folderSelect = document.getElementById('folderSelect');
+  folderSelect.innerHTML = '<option value="">Pilih Folder untuk Upload</option>';
+  
+  Object.keys(publicFiles).forEach(f => {
+    folderSelect.innerHTML += `<option value="${f}">📁 ${f}</option>`;
+  });
+}
+
+function toggleFolder(folderName) {
+  const folderContent = document.getElementById(`folder-${folderName}`);
+  const folderHeader = folderContent.previousElementSibling;
+  
+  folderContent.classList.toggle('show');
+  folderHeader.classList.toggle('active');
+}
+
+// ==================== FILE MANAGEMENT ====================
+function startUpload() {
+  const fileInput = document.getElementById('fileInput');
+  const f = fileInput.files[0];
+  
+  if (!f) return;
+  
+  const selectedFolder = document.getElementById('folderSelect').value;
+  
+  if (!selectedFolder) {
+    showToast("Please select a folder first!", 'warning');
+    return;
+  }
+  
+  // Check file size (limit to 10MB for localStorage)
+  if (f.size > 10 * 1024 * 1024) {
+    showToast("File too large! Maximum 10MB", 'error');
+    return;
+  }
+  
+  const reader = new FileReader();
+  
+  reader.onload = e => {
+    const data = {
+      name: f.name,
+      size: (f.size / 1024).toFixed(1) + " KB",
+      data: e.target.result,
+      uploadedBy: currentUser,
+      uploadDate: new Date().toLocaleString('id-ID')
+    };
+    
+    publicFiles[selectedFolder].push(data);
+    saveAll();
+    renderFiles();
+    updateStats();
+    
+    showToast(`File "${f.name}" uploaded successfully!`, 'success');
+  };
+  
+  reader.onerror = () => {
+    showToast("Failed to read file!", 'error');
+  };
+  
+  reader.readAsDataURL(f);
+  fileInput.value = ""; // Reset input
+}
+
+function renderFiles() {
+  const list = document.getElementById('list');
+  list.innerHTML = "";
+  
+  // Public Files Section
+  list.innerHTML += '<h4 class="section-header">🌐 Public Files</h4>';
+  
+  const folderKeys = Object.keys(publicFiles);
+  
+  if (folderKeys.length === 0) {
+    list.innerHTML += `
+      <div class="empty-state">
+        <div class="empty-state-icon">📂</div>
+        <p>No public folders yet</p>
+      </div>`;
+  } else {
+    folderKeys.forEach(folder => {
+      const files = publicFiles[folder];
+      
+      list.innerHTML += `
+        <div class="folder-header" onclick="toggleFolder('${folder}')">
+          <div class="folder-title">
+            <span>📁</span>
+            <span>${folder}</span>
+            <span style="color: var(--text-light); font-size: 12px;">(${files.length})</span>
+          </div>
+          ${isAdmin ? `<button class="btn btn-danger btn-small" onclick="event.stopPropagation(); removeFolder('${folder}')">Delete</button>` : ''}
+        </div>
+        <div class="folder-content" id="folder-${folder}">
+          ${files.length === 0 ? '<div class="empty-state" style="padding: 20px;"><p>Empty folder</p></div>' : 
+            files.map((f, i) => createFileBox(f, `downloadFile(publicFiles['${folder}'][${i}])`, isAdmin ? `removePublic('${folder}',${i})` : "")).join('')}
+        </div>`;
+    });
+  }
+  
+  // Private Files Section
+  list.innerHTML += '<h4 class="section-header">👤 My Files</h4>';
+  
+  const myFiles = userFiles[currentUser] || [];
+  
+  if (myFiles.length === 0) {
+    list.innerHTML += `
+      <div class="empty-state">
+        <div class="empty-state-icon">📄</div>
+        <p>You don't have any personal files yet</p>
+      </div>`;
+  } else {
+    myFiles.forEach((f, i) => {
+      list.innerHTML += createFileBox(f, `downloadFile(userFiles['${currentUser}'][${i}])`, `removePrivate(${i})`);
+    });
+  }
+}
+
+function createFileBox(file, downloadAction, deleteAction) {
+  const icon = getFileIcon(file.name);
+  
+  return `
+    <div class="file-item">
+      <div class="file-icon">${icon}</div>
+      <div class="file-info">
+        <b>${file.name}</b>
+        <small>${file.size}${file.uploadDate ? ` • ${file.uploadDate}` : ''}</small>
+      </div>
+      <div class="file-actions">
+        <button class="btn btn-small" onclick="${downloadAction}">💾 SAVE</button>
+        ${deleteAction ? `<button class="btn btn-danger btn-small" onclick="${deleteAction}">✗</button>` : ''}
+      </div>
+    </div>`;
+}
+
+function removePublic(folder, i) {
+  if (confirm('Delete this file?')) {
+    publicFiles[folder].splice(i, 1);
+    saveAll();
+    renderFiles();
+    updateStats();
+    showToast('File deleted!', 'success');
+  }
+}
+
+function removePrivate(i) {
+  if (confirm('Delete this file?')) {
+    userFiles[currentUser].splice(i, 1);
+    saveAll();
+    renderFiles();
+    updateStats();
+    showToast('File deleted!', 'success');
+  }
+}
+
+async function downloadFile(f) {
+  try {
+    const res = await fetch(f.data);
+    const blob = await res.blob();
+    const file = new File([blob], f.name, { type: blob.type });
+    
+    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+      await navigator.share({ files: [file] });
+    } else {
+      const a = document.createElement("a");
+      a.href = f.data;
+      a.download = f.name;
+      a.click();
+    }
+    
+    showToast(`Downloading ${f.name}...`, 'success');
+  } catch (e) {
+    showToast("Download failed!", 'error');
+  }
+}
+
+// ==================== CHAT SYSTEM ====================
+function sendMessage() {
+  const chatInput = document.getElementById('chatInput');
+  const message = chatInput.value.trim();
+  
+  if (!message) return;
+  
+  chatData.push({
+    u: currentUser || "Guest",
+    t: message,
+    time: new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })
+  });
+  
+  chatInput.value = "";
+  saveAll();
+  renderChat();
+}
+
+function renderChat() {
+  const chatMessages = document.getElementById('chatMessages');
+  
+  if (chatData.length === 0) {
+    chatMessages.innerHTML = '<div class="empty-state" style="padding: 20px;"><p>No messages yet</p></div>';
+  } else {
+    chatMessages.innerHTML = chatData.map((m, i) => `
+      <div class="message">
+        <b>${m.u}</b>
+        <small style="color: #888; margin-left: 5px;">${m.time || ''}</small>: 
+        ${m.t}
+        ${isAdmin ? `<span class="message-delete" onclick="deleteChat(${i})">✖</span>` : ''}
+      </div>
+    `).join('');
+  }
+  
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+function clearChat() {
+  if (confirm("Clear all chat messages?")) {
+    chatData = [];
+    saveAll();
+    renderChat();
+    showToast('Chat cleared!', 'success');
+  }
+}
+
+function deleteChat(i) {
+  chatData.splice(i, 1);
+  saveAll();
+  renderChat();
+}
+
+function toggleChat() {
+  chatMinimized = !chatMinimized;
+  document.getElementById('chatBox').classList.toggle('minimized');
+}
+
+// ==================== CHAT DRAGGING ====================
 const chatBox = document.getElementById('chatBox');
+
+// Restore saved position
 if (chatPos.x !== "auto") {
   chatBox.style.left = chatPos.x + "px";
   chatBox.style.top = chatPos.y + "px";
@@ -157,176 +1241,64 @@ if (chatPos.x !== "auto") {
   chatBox.style.right = "auto";
 }
 
-function saveAll(){
- localStorage.setItem("publicFiles", JSON.stringify(publicFiles));
- localStorage.setItem("userFiles", JSON.stringify(userFiles));
- localStorage.setItem("chatData", JSON.stringify(chatData));
- localStorage.setItem("accounts", JSON.stringify(accounts));
- localStorage.setItem("chatPos", JSON.stringify(chatPos));
-}
-
-function doLogin(){
- const u = document.getElementById('username').value.trim();
- const p = document.getElementById('userpass').value.trim();
- const k = document.getElementById('userkey').value.trim().toLowerCase();
- if(k !== "itsdonline"){ alert("Invalid Key!"); return; }
- if(!u || !p){ alert("Please fill all fields!"); return; }
-
- if(accounts[u]) {
-    if(accounts[u] !== p) { alert("❌ Wrong password!"); return; }
- } else {
-    accounts[u] = p;
-    userFiles[u] = [];
-    alert("✅ Account registered!");
- }
- currentUser = u;
- if(u.toLowerCase() === "donline"){
-  isAdmin = true;
-  document.getElementById('adminPanel').style.display="block";
-  document.getElementById("adminChatBtn").style.display="inline";
-  updateFolderSelect();
- }
- saveAll();
- document.getElementById('loginBox').style.display="none";
- document.getElementById('dashboard').style.display="block";
- renderFiles();
- renderChat();
-}
-
-function logout(){ location.reload(); }
-
-function addFolder(){
- const folderName = document.getElementById('newFolderName').value.trim();
- if(!folderName){ alert("Name cannot be empty!"); return; }
- if(publicFiles[folderName]){ alert("Folder exists!"); return; }
- publicFiles[folderName] = [];
- document.getElementById('newFolderName').value = "";
- saveAll();
- updateFolderSelect();
- renderFiles();
-}
-
-function updateFolderSelect(){
- const folderSelect = document.getElementById('folderSelect');
- folderSelect.innerHTML = '<option value="">Select Folder</option>';
- Object.keys(publicFiles).forEach(f => {
-  folderSelect.innerHTML += `<option value="${f}">${f}</option>`;
- });
-}
-
-function startUpload(){
- const fileInput = document.getElementById('fileInput');
- const f = fileInput.files[0];
- if(!f) return;
- const selectedFolder = document.getElementById('folderSelect').value;
- if(!selectedFolder){ alert("Select a folder first!"); return; }
-
- const reader=new FileReader();
- reader.onload=e=>{
-  const data={name:f.name,size:(f.size/1024).toFixed(1)+" KB",data:e.target.result};
-  publicFiles[selectedFolder].push(data);
-  saveAll();
-  renderFiles();
-  alert("File Uploaded!");
- }
- reader.readAsDataURL(f);
-}
-
-function renderFiles(){
- const list = document.getElementById('list');
- list.innerHTML="<h4 style='color:#555'>🌐 Public Files</h4>";
- Object.keys(publicFiles).forEach(folder => {
-  const files = publicFiles[folder];
-  list.innerHTML += `
-    <div class="folder-header" onclick="toggleFolder('${folder}')">
-      <span>📁 ${folder} (${files.length})</span>
-      ${isAdmin ? `<button onclick="event.stopPropagation(); removeFolder('${folder}')" style="background:red; color:#fff; border:none; padding:4px 8px; border-radius:5px;">Delete</button>` : ''}
-    </div>
-    <div class="folder-content" id="folder-${folder}">
-      ${files.map((f,i)=>fileBox(f,`downloadFile(publicFiles['${folder}'][${i}])`,isAdmin?`removePublic('${folder}',${i})`:"")).join('')}
-    </div>`;
- });
- list.innerHTML+="<h4 style='color:#555'>👤 My Files</h4>";
- (userFiles[currentUser]||[]).forEach((f,i)=>list.innerHTML+=fileBox(f,`downloadFile(userFiles['${currentUser}'][${i}])`,`removePrivate(${i})`));
-}
-
-function toggleFolder(f){ document.getElementById(`folder-${f}`).classList.toggle('show'); }
-
-function removeFolder(folder){
- if(confirm(`Delete "${folder}"?`)){ delete publicFiles[folder]; saveAll(); updateFolderSelect(); renderFiles(); }
-}
-
-function fileBox(f,d,del){
- return `<div class="file-item"><div class="file-info"><b>${f.name}</b><br><small>${f.size}</small></div><button class="btn file-btn" onclick="${d}">SAVE</button>${del?`<button class="btn file-btn" style="background:red" onclick="${del}">X</button>`:""}</div>`;
-}
-
-function removePublic(folder,i){ publicFiles[folder].splice(i,1); saveAll(); renderFiles(); }
-function removePrivate(i){ userFiles[currentUser].splice(i,1); saveAll(); renderFiles(); }
-
-async function downloadFile(f){
- try {
-  const res = await fetch(f.data);
-  const blob = await res.blob();
-  const file = new File([blob], f.name, {type: blob.type});
-  if(navigator.canShare && navigator.canShare({files:[file]})) await navigator.share({files:[file]});
-  else { const a=document.createElement("a"); a.href=f.data; a.download=f.name; a.click(); }
- } catch(e) { alert("Download failed."); }
-}
-
-function sendMessage(){
- const chatInput = document.getElementById('chatInput');
- if(!chatInput.value.trim()) return;
- chatData.push({u:currentUser || "Guest", t:chatInput.value});
- chatInput.value=""; saveAll(); renderChat();
-}
-
-function renderChat(){
- const chatMessages = document.getElementById('chatMessages');
- chatMessages.innerHTML = chatData.map((m,i)=>`
-  <div class="message"><b>${m.u}</b>: ${m.t} ${isAdmin ? `<span onclick="deleteChat(${i})" style="color:red; cursor:pointer;">✖</span>` : ``}</div>
- `).join('');
- chatMessages.scrollTop = chatMessages.scrollHeight;
-}
-
-function clearChat(){ if(confirm("Clear all chat?")){ chatData = []; saveAll(); renderChat(); } }
-function deleteChat(i){ chatData.splice(i,1); saveAll(); renderChat(); }
-
-// --- DRAG LOGIC ---
 let isDragging = false;
 let offsetX, offsetY;
 
 function startDrag(e) {
   const clientX = e.type === 'touchstart' ? e.touches[0].clientX : e.clientX;
   const clientY = e.type === 'touchstart' ? e.touches[0].clientY : e.clientY;
+  
   isDragging = true;
   offsetX = clientX - chatBox.offsetLeft;
   offsetY = clientY - chatBox.offsetTop;
+  
+  chatBox.style.transition = 'none';
 }
+
 function onDrag(e) {
   if (!isDragging) return;
+  
   if (e.type === 'touchmove') e.preventDefault();
+  
   const clientX = e.type === 'touchmove' ? e.touches[0].clientX : e.clientX;
   const clientY = e.type === 'touchmove' ? e.touches[0].clientY : e.clientY;
+  
   let x = clientX - offsetX;
   let y = clientY - offsetY;
+  
+  // Boundary constraints
   x = Math.max(0, Math.min(x, window.innerWidth - chatBox.offsetWidth));
   y = Math.max(0, Math.min(y, window.innerHeight - chatBox.offsetHeight));
+  
   chatBox.style.left = x + 'px';
   chatBox.style.top = y + 'px';
   chatBox.style.right = 'auto';
   chatBox.style.bottom = 'auto';
-  chatPos = {x, y};
+  
+  chatPos = { x, y };
 }
-function stopDrag() { isDragging = false; saveAll(); }
 
+function stopDrag() {
+  if (isDragging) {
+    isDragging = false;
+    chatBox.style.transition = 'all 0.3s ease';
+    saveAll();
+  }
+}
+
+// Mouse events
 document.getElementById('chatHeader').addEventListener('mousedown', startDrag);
 document.addEventListener('mousemove', onDrag);
 document.addEventListener('mouseup', stopDrag);
+
+// Touch events
 document.getElementById('chatHeader').addEventListener('touchstart', startDrag, { passive: false });
 document.addEventListener('touchmove', onDrag, { passive: false });
 document.addEventListener('touchend', stopDrag);
 
+// ==================== INITIALIZE ====================
 renderChat();
 </script>
+
 </body>
 </html>
